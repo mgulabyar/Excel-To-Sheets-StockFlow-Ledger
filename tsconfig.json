@@ -7,15 +7,17 @@
     "forceConsistentCasingInFileNames": true,
     "jsx": "react",
     "module": "ES2020",
-    "moduleResolution": "node",
+    "moduleResolution": "bundler",
     "noImplicitReturns": true,
     "noUnusedParameters": true,
     "outDir": "dist",
+    "rootDir": "src",
     "removeComments": false,
     "sourceMap": true,
-    "target": "es5",
+    "strict": true,
+    "target": "es2019",
     "lib": [
-      "es7",
+      "es2019",
       "dom"
     ],
     "pretty": true,
@@ -24,14 +26,15 @@
     ]
   },
   "exclude": [
-    "node_modules"
+    "node_modules",
+    "dist"
   ],
   "compileOnSave": false,
   "buildOnSave": false,
-  "ts-node": { 
+  "ts-node": {
     "compilerOptions": {
       "module": "commonjs"
     },
-    "files": true 
+    "files": true
   }
 }
