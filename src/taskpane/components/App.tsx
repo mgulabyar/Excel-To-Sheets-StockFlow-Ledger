@@ -9,7 +9,6 @@ import {
   Card,
   CardContent,
   Divider,
-  Chip,
   Alert,
   Snackbar,
 } from "@mui/material";
@@ -17,7 +16,6 @@ import SyncAltIcon from "@mui/icons-material/SyncAlt";
 import CloudUploadIcon from "@mui/icons-material/CloudUpload";
 import StorageIcon from "@mui/icons-material/Storage";
 
-/* global Excel */
 
 export default function App() {
   // Input tracking vectors for procurement decision matrix
