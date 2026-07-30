@@ -110,7 +110,6 @@ export default function App() {
           const dataValues = usedRange.values;
           for (let i = 1; i < dataValues.length; i++) {
             if (String(dataValues[i][0]).trim() === itemCode.trim()) {
-              // Update local tracking metrics row cells synchronously
               sheet.getRangeByIndexes(i, 2).values = [[parseInt(quantity, 10)]];
               sheet.getRangeByIndexes(i, 4).values = [["Synced to Cloud Ledger"]];
 
