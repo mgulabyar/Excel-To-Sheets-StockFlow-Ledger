@@ -59,8 +59,8 @@ export default function App() {
               for (let i = 1; i < dataValues.length; i++) {
                 if (String(dataValues[i][0]).trim() === lowItemCode.trim()) {
                   const targetRowRange = sheet.getRow(i);
-                  const visualDataGrid = targetRowRange.getResizedRange(0, 4); // Limit color mapping to cols A-E
-                  visualDataGrid.format.fill.color = "#FEE2E2"; // Enterprise pastel red alert accent
+                  const visualDataGrid = targetRowRange.getResizedRange(0, 4);
+                  visualDataGrid.format.fill.color = "#FEE2E2";
                 }
               }
             });
