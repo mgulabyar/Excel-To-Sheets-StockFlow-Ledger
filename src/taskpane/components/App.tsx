@@ -223,7 +223,7 @@ export default function App() {
         </CardContent>
       </Card>
 
-      {/* System Status Pipelit Bar Container */}
+      {/* System Bar Container */}
       <Snackbar
         open={openSnackbar}
         autoHideDuration={4000}
