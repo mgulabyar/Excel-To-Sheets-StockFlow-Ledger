@@ -26,7 +26,6 @@ export default function App() {
 
   const GOOGLE_SCRIPT_API_URL = "YOUR_DEPLOYED_GOOGLE_APPS_SCRIPT_WEB_APP_URL_HERE";
 
-  // Polling stream sync to check cloud matrix updates every 6 seconds
   useEffect(() => {
     const trackingPollingInterval = setInterval(() => {
       fetchLatestCloudInventory();
