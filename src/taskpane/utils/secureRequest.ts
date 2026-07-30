@@ -8,7 +8,7 @@
  * In production, do NOT hardcode this - load it from Office.context.document
  * settings, a secure config store, or prompt the admin once on first setup.
  */
-const SHARED_SECRET = "REPLACE_WITH_SECURE_SHARED_SECRET";
+const SHARED_SECRET = "a3f9c2e8b1d4f6a7c9e2b5d8f1a4c7e9b2d5f8a1c4e7b9d2f5a8c1e4b7d9f2a5";
 
 /**
  * Generates an HMAC-SHA256 signature for a payload using the Web Crypto API.

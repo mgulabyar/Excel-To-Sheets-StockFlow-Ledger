@@ -1,6 +1,4 @@
-// ============================================================================
-// StatusIndicator.tsx - Live Sync Status Dot + Queue Badge
-// ============================================================================
+
 
 import * as React from "react";
 import { Box, Typography, Tooltip } from "@mui/material";
