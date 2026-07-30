@@ -97,7 +97,6 @@ export default function App() {
         body: JSON.stringify(transmissionPayload),
       });
 
-      // Synchronize action directly back onto local Excel sheets grid tracking
       await Excel.run(
         async (context: {
           workbook: { worksheets: { getActiveWorksheet: () => any } };
