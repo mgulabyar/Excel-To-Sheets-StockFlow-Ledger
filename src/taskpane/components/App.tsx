@@ -17,7 +17,6 @@ import StorageIcon from "@mui/icons-material/Storage";
 
 
 export default function App() {
-  // Input tracking vectors for procurement decision matrix
   const [itemCode, setItemCode] = useState<string>("");
   const [quantity, setQuantity] = useState<string>("");
 
