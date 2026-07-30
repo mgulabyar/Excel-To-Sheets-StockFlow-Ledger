@@ -20,7 +20,6 @@ export default function App() {
   const [itemCode, setItemCode] = useState<string>("");
   const [quantity, setQuantity] = useState<string>("");
 
-  // Interface alerts and dynamic operation signaling tracking
   const [loading, setLoading] = useState<boolean>(false);
   const [snackbarMsg, setSnackbarMsg] = useState<string>("");
   const [openSnackbar, setOpenSnackbar] = useState<boolean>(false);
