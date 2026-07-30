@@ -1,0 +1,29 @@
+# Dependency directories
+node_modules/
+jspm_packages/
+
+# Build and distribution production targets
+dist/
+build/
+out/
+
+# IDE configs and project metadata caches
+.idea/
+.vscode/
+*.suo
+*.ntvs*
+*.njsproj
+*.sln
+*.sw?
+
+# Diagnostic logs and telemetry monitoring artifacts
+npm-debug.log*
+yarn-debug.log*
+yarn-error.log*
+logs/
+*.log
+
+# Local hidden configuration credentials
+.env
+.env.local
+.env.development.local
