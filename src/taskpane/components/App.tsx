@@ -43,7 +43,6 @@ export default function App() {
       const payloadData = await response.json();
 
       if (payloadData && payloadData.lowStockItems) {
-        // Run deep structural context script targeting the worksheet matrix loop
         await Excel.run(
           async (context: {
             workbook: { worksheets: { getActiveWorksheet: () => any } };
