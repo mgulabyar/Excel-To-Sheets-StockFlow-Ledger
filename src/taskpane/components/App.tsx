@@ -113,7 +113,6 @@ export default function App() {
               sheet.getRangeByIndexes(i, 2).values = [[parseInt(quantity, 10)]];
               sheet.getRangeByIndexes(i, 4).values = [["Synced to Cloud Ledger"]];
 
-              // Clear alert highlight to clean row state since value is restored
               const targetRowRange = sheet.getRow(i);
               const visualDataGrid = targetRowRange.getResizedRange(0, 4);
               visualDataGrid.format.fill.clear();
