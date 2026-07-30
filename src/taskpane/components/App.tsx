@@ -92,7 +92,7 @@ export default function App() {
 
       const serverResponse = await fetch(GOOGLE_SCRIPT_API_URL, {
         method: "POST",
-        mode: "no-cors", // Bypasses explicit pipeline network block limitations
+        mode: "no-cors",
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify(transmissionPayload),
       });
