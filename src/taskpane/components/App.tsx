@@ -146,7 +146,6 @@ export default function App() {
       }}
     >
 
-      {/* Live Stream Telemetry Tracker Alert Component */}
       <Alert
         severity="info"
         icon={<SyncAltIcon fontSize="small" />}
