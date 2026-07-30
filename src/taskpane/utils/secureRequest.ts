@@ -1,20 +1,6 @@
-// ============================================================================
-// secureRequest.ts - HMAC Signed Request Layer
-// Fixes: (1) missing security/auth, (2) the fake-success "no-cors" bug
-// ============================================================================
 
-/**
- * IMPORTANT: This secret must match the one configured in Code.gs (Sheets side).
- * In production, do NOT hardcode this - load it from Office.context.document
- * settings, a secure config store, or prompt the admin once on first setup.
- */
 const SHARED_SECRET = "a3f9c2e8b1d4f6a7c9e2b5d8f1a4c7e9b2d5f8a1c4e7b9d2f5a8c1e4b7d9f2a5";
 
-/**
- * Generates an HMAC-SHA256 signature for a payload using the Web Crypto API.
- * Runs client-side inside the Excel taskpane (browser-based webview),
- * so window.crypto.subtle is available without extra dependencies.
- */
 async function signPayload(payloadString: string): Promise<string> {
   const encoder = new TextEncoder();
   const keyData = encoder.encode(SHARED_SECRET);
@@ -40,17 +26,6 @@ export interface SecureResponse<T = any> {
   errorMessage: string | null;
 }
 
-/**
- * Sends a signed, verifiable POST request and ACTUALLY reads the response.
- * This replaces the old `mode: "no-cors"` call, which always reported
- * "success" even when the server failed or rejected the request.
- *
- * Requirement: The Google Apps Script Web App must be deployed with
- * "Execute as: Me" and "Who has access: Anyone" (or org-restricted),
- * which allows normal CORS-enabled responses to be read - no-cors is
- * only needed if you deliberately want to ignore the response, which
- * defeats real error handling.
- */
 export async function sendSecurePost<T = any>(
   url: string,
   payload: Record<string, any>
@@ -72,7 +47,7 @@ export async function sendSecurePost<T = any>(
     try {
       data = await response.json();
     } catch {
-      // Response wasn't JSON - still treat status code as source of truth
+
     }
 
     if (!response.ok) {
@@ -95,9 +70,7 @@ export async function sendSecurePost<T = any>(
   }
 }
 
-/**
- * Signed GET request wrapper (for polling reads).
- */
+
 export async function sendSecureGet<T = any>(url: string): Promise<SecureResponse<T>> {
   try {
     const response = await fetch(url);
@@ -105,7 +78,7 @@ export async function sendSecureGet<T = any>(url: string): Promise<SecureRespons
     try {
       data = await response.json();
     } catch {
-      // ignore
+
     }
 
     if (!response.ok) {
