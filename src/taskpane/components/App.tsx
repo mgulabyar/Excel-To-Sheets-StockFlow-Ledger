@@ -339,6 +339,7 @@ import {
 } from "../utils/approvalWorkflow";
 import { recordTrendPoint, getTrendPoints, getAdaptiveLeadTime } from "../utils/analyticsEngine";
 
+
 import StatusIndicator from "../components/StatusIndicator";
 import ApprovalPanel from "../components/ApprovalPanel";
 import TrendChart from "../components/TrendChart";
@@ -631,12 +632,14 @@ export default function App() {
       }}
     >
       {/* Branding */}
-      <Box sx={{ mt: 1 }}>
-        <Typography variant="h5" sx={{ fontWeight: 700, color: "#0062D6", letterSpacing: "-0.02em", fontSize: "24px" }}>
+      <Box sx={{ mt: 1,  textAlign:"center" }}>
+        <Typography  sx={{ fontWeight: "semibold", color: "#0062D6", fontSize: "18px" }}>
           StockFlow Ledger
         </Typography>
-        <Typography variant="body2" sx={{ color: "#64748b", fontSize: "12px", mt: 0.5, lineHeight: 1.5 }}>
-          Near-instant enterprise middleware bridging local desktop spreadsheet architectures with cloud warehousing ledgers.
+        <Typography variant="body2" sx={{ color: "#64748b", fontSize: "13px", display:"flex", justifyContent:"center", alignItems:"center"}}>
+          Excel Add-ins
+             <SyncAltIcon sx={{ color: '#5f6368', fontSize:"16px", paddingX:"8px" }} />
+           Google Sheets
         </Typography>
       </Box>
 
