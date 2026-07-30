@@ -154,7 +154,6 @@ export default function App() {
         Telemetry Monitor Active: Syncing every 6s.
       </Alert>
 
-      {/* Active Operational Module Grid */}
       <Card
         sx={{
           borderRadius: 4,
