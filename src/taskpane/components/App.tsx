@@ -55,7 +55,6 @@ export default function App() {
 
             const dataValues = usedRange.values;
 
-            // Loop and compare each row anchor key against lowStockItems vectors
             payloadData.lowStockItems.forEach((lowItemCode: string) => {
               for (let i = 1; i < dataValues.length; i++) {
                 if (String(dataValues[i][0]).trim() === lowItemCode.trim()) {
