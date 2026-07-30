@@ -34,11 +34,9 @@ export default function App() {
     return () => clearInterval(trackingPollingInterval);
   }, []);
 
-  /**
-   */
+  
   const fetchLatestCloudInventory = async () => {
     try {
-      // Fetch dynamic active stock ledger states from the deployed cloud URL
       const response = await fetch(`${GOOGLE_SCRIPT_API_URL}?action=readLatest`);
       if (!response.ok) return;
 
