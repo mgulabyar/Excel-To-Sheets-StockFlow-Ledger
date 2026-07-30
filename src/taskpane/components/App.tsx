@@ -223,7 +223,6 @@ export default function App() {
         </CardContent>
       </Card>
 
-      {/* System Bar Container */}
       <Snackbar
         open={openSnackbar}
         autoHideDuration={4000}
