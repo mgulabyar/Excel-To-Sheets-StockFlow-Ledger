@@ -74,7 +74,6 @@ export default function App() {
   };
 
   /**
-   * and dispatches authorization parameters instantly to Google Sheet ledgers.
    */
   const handlePushWritebackMatrix = async () => {
     if (!itemCode || !quantity) {
