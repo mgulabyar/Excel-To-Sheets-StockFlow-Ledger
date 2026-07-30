@@ -24,7 +24,6 @@ export default function App() {
   const [snackbarMsg, setSnackbarMsg] = useState<string>("");
   const [openSnackbar, setOpenSnackbar] = useState<boolean>(false);
 
-  // DEPLOYED GOOGLE APPS SCRIPg
   const GOOGLE_SCRIPT_API_URL = "YOUR_DEPLOYED_GOOGLE_APPS_SCRIPT_WEB_APP_URL_HERE";
 
   // Polling stream sync to check cloud matrix updates every 6 seconds
