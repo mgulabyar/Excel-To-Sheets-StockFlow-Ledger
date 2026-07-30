@@ -35,7 +35,6 @@ export default function App() {
   }, []);
 
   /**
-   * PULL ENGINE: Fetches inventory states from Google Sheets and enforces real-time
    * conditional highlights directly inside Excel Desktop matching stock thresholds.
    */
   const fetchLatestCloudInventory = async () => {
