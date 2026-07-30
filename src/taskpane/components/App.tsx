@@ -35,7 +35,6 @@ export default function App() {
   }, []);
 
   /**
-   * conditional highlights directly inside Excel Desktop matching stock thresholds.
    */
   const fetchLatestCloudInventory = async () => {
     try {
