@@ -74,7 +74,6 @@ export default function App() {
   };
 
   /**
-   * PUSH ENGINE: Reads structural Excel workspace values, builds data schema pipelines,
    * and dispatches authorization parameters instantly to Google Sheet ledgers.
    */
   const handlePushWritebackMatrix = async () => {
