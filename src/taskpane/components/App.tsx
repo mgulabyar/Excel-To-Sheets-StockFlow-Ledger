@@ -97,11 +97,11 @@ export default function App() {
   return (
     <Box sx={{ p: 2, display: "flex", flexDirection: "column", gap: 3, bgcolor: "#fbfcfe", minHeight: "100vh" }}>
       <Box sx={{ textAlign: "center" }}>
-        <Typography sx={{ fontWeight: "bold", color: "#0062D6", fontSize: "18px" }}>
+        <Typography sx={{ fontWeight: "bold", color: "#0062D6", fontSize: "20px" }}>
           StockFlow Ledger
         </Typography>
         <Typography variant="body2" sx={{ color: "#64748b", display: "flex", justifyContent: "center", alignItems: "center", gap: 1 }}>
-          Excel <SyncAltIcon sx={{ fontSize: "16px" }} /> Google Sheets
+          Excel Add-ins<SyncAltIcon sx={{ fontSize: "16px" }} /> Google Sheets
         </Typography>
       </Box>
 
