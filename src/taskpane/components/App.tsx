@@ -104,7 +104,6 @@ export default function App() {
         </Typography>
       </Box>
 
-      {/* Status Indicators */}
       {status && <Alert severity={status.type}>{status.msg}</Alert>}
 
       {/* Input Fields */}
