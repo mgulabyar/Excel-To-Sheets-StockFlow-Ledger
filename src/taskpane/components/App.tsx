@@ -1,4 +1,3 @@
-/* global Excel */
 import * as React from "react";
 import { Box, Typography, Button, TextField, Alert, CircularProgress } from "@mui/material";
 import SyncAltIcon from "@mui/icons-material/SyncAlt";
@@ -15,7 +14,6 @@ export default function App() {
   const [status, setStatus] = React.useState<{ type: "success" | "error"; msg: string } | null>(null);
 
 
-  // 1. EXCEL TO SHEETS
   const pushToSheets = async () => {
     if (!itemCode || !quantity) {
       setStatus({ type: "error", msg: "Please fill both fields!" });
