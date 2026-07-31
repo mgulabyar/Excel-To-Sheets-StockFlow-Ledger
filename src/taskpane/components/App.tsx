@@ -3,7 +3,6 @@ import { Box, Typography, Button, TextField, Alert, CircularProgress } from "@mu
 import SyncAltIcon from "@mui/icons-material/SyncAlt";
 
 
-// Google Sheets Web App URL (Google Script deploy karne ke baad jo URL milega, wo yahan lagega)
 const GOOGLE_SCRIPT_WEB_APP_URL = "https://script.google.com/macros/s/AKfycbzE7ehrPGVe3eKK6qGI8ZdgAOjy5u_rftI_av8wdXCfb-mzWhs73EvUCKvizM5lXFcoQg/exec";
 
 
