@@ -27,7 +27,7 @@ export default function App() {
       const response = await fetch(GOOGLE_SCRIPT_WEB_APP_URL, {
         method: "POST",
         body: JSON.stringify({ action: "writeData", item: itemCode, qty: quantity }),
-        // Content-Type header mat bhejo — Google Apps Script automatically parse kar leta hai
+        
       });
 
       if (!response.ok) {
