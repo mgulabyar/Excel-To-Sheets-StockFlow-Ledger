@@ -1,3 +1,4 @@
+declare const Excel: any;
 import * as React from "react";
 import { Box, Typography, Button, TextField, Alert, CircularProgress } from "@mui/material";
 import SyncAltIcon from "@mui/icons-material/SyncAlt";
