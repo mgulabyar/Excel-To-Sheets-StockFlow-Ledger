@@ -132,7 +132,7 @@ export default function App() {
         fullWidth
         sx={{ bgcolor: "#0062D6", textTransform: "none", py: 1 }}
       >
-        {loading ? <CircularProgress size={24} color="inherit" /> : "Send to Google Sheets"}
+        {loading ? <CircularProgress size={22} color="inherit" /> : "Send to Google Sheets"}
       </Button>
 
       <Button
