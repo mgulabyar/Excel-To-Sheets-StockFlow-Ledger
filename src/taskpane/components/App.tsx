@@ -23,7 +23,7 @@ export default function App() {
     setStatus(null);
 
     try {
-      // CORS preflight text POST bhejo
+
       const response = await fetch(GOOGLE_SCRIPT_WEB_APP_URL, {
         method: "POST",
         body: JSON.stringify({ action: "writeData", item: itemCode, qty: quantity }),
