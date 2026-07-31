@@ -15,7 +15,7 @@ export default function App() {
   const [status, setStatus] = React.useState<{ type: "success" | "error"; msg: string } | null>(null);
 
 
-  // 1. EXCEL TO SHEETS: Excel se input data Google Sheets ko bhejna
+  // 1. EXCEL TO SHEETS: Excel se input data Google 
   const pushToSheets = async () => {
     if (!itemCode || !quantity) {
       setStatus({ type: "error", msg: "Please fill both fields!" });
