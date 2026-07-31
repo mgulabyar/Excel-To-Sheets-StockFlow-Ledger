@@ -99,9 +99,12 @@ export default function App() {
       flexDirection: "column", 
       gap: 2, 
       bgcolor: "#fbfcfe", 
-      minHeight: "100vh",
+      // minHeight: "100vh",
+      textAlign:'center',
+      justifyContent:"center",
+      alignItems:"center"
+      
     }}>
-      {/* Floating Toast */}
       {toast && (
         <Box
           sx={{
@@ -135,7 +138,7 @@ export default function App() {
       )}
 
       {/* Header */}
-      <Box sx={{ textAlign: "center", mb: 1 }}>
+      <Box sx={{ textAlign: "center", mb: 1,}}>
         <Typography sx={{ fontWeight: 700, color: "#0062D6", fontSize: "19px", letterSpacing: "0.3px" }}>
           StockFlow Ledger
         </Typography>
@@ -153,7 +156,9 @@ export default function App() {
           Excel Add-ins <SyncAltIcon sx={{ fontSize: "15px" }} /> Google Sheets
         </Typography>
       </Box>
+<Box>
 
+</Box>
       {/* Inputs */}
       <TextField
         label="Item Name"
@@ -162,9 +167,9 @@ export default function App() {
         value={itemCode}
         onChange={(e) => setItemCode(e.target.value)}
         fullWidth
-        sx={{
+        sx={{ width:"90%",
           "& .MuiOutlinedInput-root": {
-            fontSize: "13px",
+            fontSize: "14px",
             "& fieldset": {
               borderColor: "#e2e8f0",
             },
@@ -190,7 +195,7 @@ export default function App() {
         value={quantity}
         onChange={(e) => setQuantity(e.target.value)}
         fullWidth
-        sx={{
+        sx={{ width:"90%",
           "& .MuiOutlinedInput-root": {
             fontSize: "13px",
             "& fieldset": {
@@ -216,7 +221,7 @@ export default function App() {
         disabled={loading}
         onClick={pushToSheets}
         fullWidth
-        sx={{ 
+        sx={{  width:"90%",
           bgcolor: "#0062D6", 
           textTransform: "none", 
           py: 0.75,
@@ -242,7 +247,7 @@ export default function App() {
         disabled={loading}
         onClick={fetchFromSheets}
         fullWidth
-        sx={{ 
+        sx={{  width:"90%",
           textTransform: "none", 
           py: 0.75,
           fontSize: "13px",
@@ -262,6 +267,7 @@ export default function App() {
       >
         Fetch from Sheets
       </Button>
+
     </Box>
   );
 }
