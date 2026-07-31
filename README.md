@@ -69,3 +69,121 @@ Core sync, security, reliability, approval chain, audit trail, and analytics
 are now implemented. Remaining Excel-side items are the near-instant/push
 sync upgrade (currently polling-based, which is an acceptable v1 pattern)
 and wiring `CURRENT_USER` to real Office identity.
+
+
+
+
+# StockFlow Ledger - Google Sheets Side (Backend + Sidebar)
+
+## 1. Spreadsheet setup
+
+Create a Google Sheet named **StockFlow Warehouse Ledger** with one tab
+named exactly **Inventory** (case-sensitive - the backend looks for this
+name). Add these headers in row 1:
+
+| A | B | C | D | E | F | G |
+|---|---|---|---|---|---|---|
+| Item Code | Physical Stock | Expected Cargo | Lead Time | Daily Sales Rate | Last Updated | Status |
+
+Add a few sample rows under the header so there's data to test against,
+e.g. `ITEM-001, 40, 20, 5, 10, (leave blank), (leave blank)`.
+
+Do NOT create the `AuditLog` sheet manually - `Code.gs` creates and hides
+it automatically the first time it's needed.
+
+## 2. Apps Script project setup
+
+1. In the Sheet: **Extensions → Apps Script**. Name the project
+   **StockFlow-Ledger-Backend**.
+2. Delete the default empty `Code.gs` content, then create/paste these
+   files exactly as named (use the `+` next to "Files" to add each one):
+   - `Config.gs`
+   - `Security.gs`
+   - `AuditLogger.gs`
+   - `Triggers.gs`
+   - `Code.gs`
+   - `Sidebar.html` (use **HTML file** type, not a `.gs` file)
+3. Open **Project Settings** (gear icon) → under "Show appsscript.json
+   manifest file in editor", enable it. Then paste the contents of our
+   `appsscript.json` into that file.
+
+## 3. Set your secrets (run once)
+
+In the Apps Script editor, select `setupScriptProperties` from the
+function dropdown at the top and click **Run**. Google will ask for
+authorization the first time - accept it.
+
+Before running, edit the two placeholder values inside `Config.gs`:
+```javascript
+SHARED_SECRET: "REPLACE_WITH_THE_SAME_SECRET_USED_IN_EXCEL_SIDE",
+API_KEY: "REPLACE_WITH_A_SEPARATE_READ_ACCESS_KEY_FOR_GET_REQUESTS",
+```
+- `SHARED_SECRET` must be **character-for-character identical** to the
+  `SHARED_SECRET` constant in the Excel side's `secureRequest.ts`.
+- `API_KEY` must match the `API_KEY` constant in that same Excel file.
+
+## 4. Deploy as a Web App (this gives you the URL Excel needs)
+
+1. Click **Deploy → New deployment**.
+2. Type: **Web app**.
+3. Execute as: **Me**.
+4. Who has access: **Anyone** (or "Anyone within [your org]" if you're on
+   Google Workspace and want it restricted).
+5. Click **Deploy**, authorize again if asked, then copy the **Web app URL**.
+6. Paste that URL into `GOOGLE_SCRIPT_API_URL` in the Excel side's `App.tsx`.
+
+Whenever you edit any `.gs` file, you must create a **new deployment
+version** (Deploy → Manage deployments → Edit → New version) for the
+Excel side to see the changes - saving the file alone is not enough.
+
+## 5. Reload the sheet and open the sidebar
+
+Refresh the Google Sheet tab. A new menu **StockFlow Ledger** appears at
+the top. Click **StockFlow Ledger → Open Control Panel** to see the
+sidebar (connection status, item lookup, recent activity).
+
+## What the sidebar shows
+
+- A live-pulsing status dot while it checks the connection
+- Which spreadsheet it's connected to and how many items are tracked
+- A search box to look up any item code and see its stockout risk
+- The 8 most recent audit events (warehouse edits + Excel writebacks)
+
+The sidebar is read-only by design - actual data entry happens directly
+in the `Inventory` sheet cells (the `onEdit` trigger picks up every
+change automatically), which matches how a warehouse team already works.
+
+## Important correction vs. the original Excel-side draft
+
+Apps Script Web Apps cannot read custom HTTP headers. This backend
+expects the HMAC signature as a `signature` field inside the JSON body
+(for `doPost`) and the API key as a `?key=` query parameter (for
+`doGet`) - the Excel side's `secureRequest.ts` was updated to match.
+
+## Rebuilding the sidebar UI (if you want to change the design)
+
+The compiled `Sidebar.html` was built from real React + MUI source in
+`sidebar-source/`. To modify it:
+
+```bash
+cd sidebar-source
+npm install
+npm run build          # outputs sidebar-source/dist/bundle.js
+```
+
+Then re-embed `dist/bundle.js` into a `<script>` tag inside a copy of
+the HTML shell (see the `<style>`/`<div id="root">` wrapper already
+used in the delivered `Sidebar.html`) and paste the result back into
+the Apps Script editor's `Sidebar.html` file.
+
+## Still outside this build (known gaps, being upfront)
+
+- No two-step approval enforcement lives on the Sheets side yet - it's
+  enforced Excel-side (`approvalStage !== "approved"` is rejected in
+  `doPost`), but a Finance Manager can't currently approve anything
+  *from* the sidebar itself. That would be a natural next feature.
+- No WebSocket/push layer - Excel still polls this Web App every 6s.
+- This has not been tested against a live deployment yet. The first
+  real run may surface small issues (e.g. Apps Script's exact quota
+  limits, sheet permission edge cases) that only show up in production.
+  
