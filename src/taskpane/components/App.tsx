@@ -3,14 +3,17 @@ import * as React from "react";
 import { Box, Typography, Button, TextField, Alert, CircularProgress } from "@mui/material";
 import SyncAltIcon from "@mui/icons-material/SyncAlt";
 
+
 // Google Sheets Web App URL (Google Script deploy karne ke baad jo URL milega, wo yahan lagega)
-const GOOGLE_SCRIPT_WEB_APP_URL = "YOUR_GOOGLE_APPS_SCRIPT_WEB_APP_URL_HERE";
+const GOOGLE_SCRIPT_WEB_APP_URL = "https://script.google.com/macros/s/AKfycbzE7ehrPGVe3eKK6qGI8ZdgAOjy5u_rftI_av8wdXCfb-mzWhs73EvUCKvizM5lXFcoQg/exec";
+
 
 export default function App() {
   const [itemCode, setItemCode] = React.useState("");
   const [quantity, setQuantity] = React.useState("");
   const [loading, setLoading] = React.useState(false);
   const [status, setStatus] = React.useState<{ type: "success" | "error"; msg: string } | null>(null);
+
 
   // 1. EXCEL TO SHEETS: Excel se input data Google Sheets ko bhejna
   const pushToSheets = async () => {
@@ -23,22 +26,33 @@ export default function App() {
     setStatus(null);
 
     try {
+      // CORS preflight avoid karne ke liye plain text POST bhejo
       const response = await fetch(GOOGLE_SCRIPT_WEB_APP_URL, {
         method: "POST",
-        mode: "no-cors", // Redirects aur CORS handle karne ke liye mandatory hai
-        headers: { "Content-Type": "application/json" },
         body: JSON.stringify({ action: "writeData", item: itemCode, qty: quantity }),
+        // Content-Type header mat bhejo — Google Apps Script automatically parse kar leta hai
       });
 
-      setStatus({ type: "success", msg: "Data sent to Google Sheets successfully!" });
-      setItemCode("");
-      setQuantity("");
+      if (!response.ok) {
+        throw new Error(`HTTP error! status: ${response.status}`);
+      }
+
+      const result = await response.json();
+      
+      if (result.status === "success") {
+        setStatus({ type: "success", msg: "Data sent to Google Sheets successfully!" });
+        setItemCode("");
+        setQuantity("");
+      } else {
+        throw new Error(result.message || "Unknown error from Sheets");
+      }
     } catch (error: any) {
       setStatus({ type: "error", msg: "Failed to send data: " + error.message });
     } finally {
       setLoading(false);
     }
   };
+
 
   // 2. SHEETS TO EXCEL: Google Sheets se data mangwa kar Excel worksheet mein write karna
   const fetchFromSheets = async () => {
@@ -47,22 +61,26 @@ export default function App() {
 
     try {
       const response = await fetch(`${GOOGLE_SCRIPT_WEB_APP_URL}?action=readData`);
-      if (!response.ok) throw new Error("Network response error");
       
+      if (!response.ok) {
+        throw new Error(`HTTP error! status: ${response.status}`);
+      }
+
       const result = await response.json();
       
-      if (result.status === "success" && result.data.length > 0) {
-        // Excel worksheet ke andar direct write operation
+      if (result.status === "success" && result.data && result.data.length > 0) {
         await Excel.run(async (context: any) => {
           const sheet = context.workbook.worksheets.getActiveWorksheet();
           
           const rowCount = result.data.length;
-          const colCount = result.data[0].length;
+          const colCount = result.data[0]?.length || 0;
           
-          // Target range starting from A1 (0,0) dynamically sized
+          if (rowCount === 0 || colCount === 0) {
+            throw new Error("Invalid data structure from Sheets");
+          }
+          
           const range = sheet.getRangeByIndexes(0, 0, rowCount, colCount);
           range.values = result.data;
-          
           range.format.autofitColumns();
           await context.sync();
         });
@@ -77,6 +95,7 @@ export default function App() {
       setLoading(false);
     }
   };
+
 
   return (
     <Box sx={{ p: 3, display: "flex", flexDirection: "column", gap: 3, bgcolor: "#fbfcfe", minHeight: "100vh" }}>
