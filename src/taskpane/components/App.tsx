@@ -51,7 +51,7 @@ export default function App() {
   };
 
 
-  // 2. SHEETS TO EXCEL: Google Sheets se data mangwa kar Excel worksheet mein write karna
+  // 2. SHEETS TO EXCEL: Google Sheets se data mangwa kar Excel worksheet
   const fetchFromSheets = async () => {
     setLoading(true);
     setStatus(null);
