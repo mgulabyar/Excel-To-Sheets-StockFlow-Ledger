@@ -94,7 +94,7 @@ export default function App() {
 
 
   return (
-    <Box sx={{ p: 3, display: "flex", flexDirection: "column", gap: 3, bgcolor: "#fbfcfe", minHeight: "100vh" }}>
+    <Box sx={{ p: 2, display: "flex", flexDirection: "column", gap: 3, bgcolor: "#fbfcfe", minHeight: "100vh" }}>
       <Box sx={{ textAlign: "center" }}>
         <Typography sx={{ fontWeight: "bold", color: "#0062D6", fontSize: "18px" }}>
           StockFlow Ledger
