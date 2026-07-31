@@ -107,7 +107,7 @@ export default function App() {
       {status && <Alert severity={status.type}>{status.msg}</Alert>}
 
       <TextField
-        label="Item Name / Code"
+        label="Item Name"
         variant="outlined"
         size="small"
         value={itemCode}
