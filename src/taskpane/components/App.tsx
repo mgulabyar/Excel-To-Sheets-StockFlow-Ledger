@@ -125,7 +125,6 @@ export default function App() {
         fullWidth
       />
 
-      {/* Sync Actions */}
       <Button
         variant="contained"
         disabled={loading}
