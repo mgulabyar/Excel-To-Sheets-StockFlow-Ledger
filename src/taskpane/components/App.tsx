@@ -51,7 +51,6 @@ export default function App() {
   };
 
 
-  // 2. SHEETS TO EXCEL: Google Sheets se
   const fetchFromSheets = async () => {
     setLoading(true);
     setStatus(null);
