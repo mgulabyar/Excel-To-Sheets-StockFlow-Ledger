@@ -106,7 +106,7 @@ export default function App() {
 
       {status && <Alert severity={status.type}>{status.msg}</Alert>}
 
-      {/* Input Fields */}
+      {/* */}
       <TextField
         label="Item Name / Code"
         variant="outlined"
