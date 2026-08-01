@@ -99,9 +99,8 @@ export default function App() {
       flexDirection: "column", 
       gap: 2, 
       bgcolor: "#fbfcfe", 
-      // minHeight: "100vh",
+      minHeight: "100vh",
       textAlign:'center',
-      justifyContent:"center",
       alignItems:"center"
       
     }}>
