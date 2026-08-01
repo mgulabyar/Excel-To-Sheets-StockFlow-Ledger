@@ -21,7 +21,6 @@ export default function App() {
 
 
   const validateInput = (): boolean => {
-    // Item code validation: at least 2 chars, letters/numbers only
     const itemRegex = /^[A-Za-z0-9]{2,}$/;
     if (!itemRegex.test(itemCode)) {
       showToast("error", "Item: 2+ chars, A-Z/0-9 only");
