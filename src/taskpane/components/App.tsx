@@ -379,7 +379,6 @@ export default function App() {
   };
 
 
-  // FEATURE: Format time ago
   const formatTimeAgo = (date: Date): string => {
     const seconds = Math.floor((new Date().getTime() - date.getTime()) / 1000);
     if (seconds < 60) return "Just now";
@@ -390,13 +389,12 @@ export default function App() {
   };
 
 
-  // FEATURE: Auto-refresh timer
   React.useEffect(() => {
     let interval: number | null = null;
     if (autoRefresh) {
       interval = setInterval(() => {
         fetchFromSheets(true);
-      }, 30000); // 30 seconds
+      }, 30000); 
     }
     return () => {
       if (interval) {
