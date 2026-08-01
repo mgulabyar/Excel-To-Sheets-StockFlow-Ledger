@@ -27,7 +27,6 @@ export default function App() {
       return false;
     }
 
-    // Quantity validation: 1-10000
     const qty = parseInt(quantity);
     if (isNaN(qty) || qty < 1 || qty > 10000) {
       showToast("error", "Qty: 1-10000 only");
