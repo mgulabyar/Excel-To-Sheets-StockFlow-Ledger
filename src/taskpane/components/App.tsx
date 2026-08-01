@@ -615,7 +615,6 @@ export default function App() {
 
 
 </Box>
-      {/* Inputs */}
       <TextField
         label="Item Name"
         variant="outlined"
