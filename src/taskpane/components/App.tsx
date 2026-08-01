@@ -5,9 +5,8 @@ import SyncAltIcon from "@mui/icons-material/SyncAlt";
 import CheckCircleIcon from "@mui/icons-material/CheckCircle";
 import RefreshIcon from "@mui/icons-material/Refresh";
 
-
-const GOOGLE_SCRIPT_WEB_APP_URL = "https://script.google.com/macros/s/AKfycbzE7ehrPGVe3eKK6qGI8ZdgAOjy5u_rftI_av8wdXCfb-mzWhs73EvUCKvizM5lXFcoQg/exec";
-
+const GOOGLE_SCRIPT_WEB_APP_URL =
+  "https://script.google.com/macros/s/AKfycbzE7ehrPGVe3eKK6qGI8ZdgAOjy5u_rftI_av8wdXCfb-mzWhs73EvUCKvizM5lXFcoQg/exec";
 
 export default function App() {
   const [itemCode, setItemCode] = React.useState("");
@@ -17,14 +16,11 @@ export default function App() {
   const [lastSync, setLastSync] = React.useState<Date | null>(null);
   const [autoRefresh, setAutoRefresh] = React.useState(false);
 
-
   const showToast = (type: "success" | "error", msg: string) => {
     setToast({ type, msg });
     setTimeout(() => setToast(null), 3000);
   };
 
-
-  // FEATURE: Data Validation
   const validateInput = (): boolean => {
     const itemRegex = /^[A-Za-z0-9]{2,}$/;
     if (!itemRegex.test(itemCode)) {
@@ -41,8 +37,6 @@ export default function App() {
     return true;
   };
 
-
-  // FEATURE: Format time ago
   const formatTimeAgo = (date: Date): string => {
     const seconds = Math.floor((new Date().getTime() - date.getTime()) / 1000);
     if (seconds < 60) return "Just now";
@@ -52,14 +46,12 @@ export default function App() {
     return `${hours}h ago`;
   };
 
-
-  // FEATURE: Auto-refresh timer
   React.useEffect(() => {
     let interval: ReturnType<typeof setInterval> | null = null;
     if (autoRefresh) {
       interval = setInterval(() => {
         fetchFromSheets(true);
-      }, 30000); // 30 seconds
+      }, 30000);
     }
     return () => {
       if (interval) {
@@ -67,7 +59,6 @@ export default function App() {
       }
     };
   }, [autoRefresh]);
-
 
   const pushToSheets = async () => {
     if (!validateInput()) {
@@ -77,21 +68,18 @@ export default function App() {
     setLoading(true);
     setToast(null);
 
-
     try {
       const response = await fetch(GOOGLE_SCRIPT_WEB_APP_URL, {
         method: "POST",
         body: JSON.stringify({ action: "writeData", item: itemCode, qty: quantity }),
       });
 
-
       if (!response.ok) {
         throw new Error(`HTTP error! status: ${response.status}`);
       }
 
-
       const result = await response.json();
-      
+
       if (result.status === "success") {
         showToast("success", "Data sent!");
         setItemCode("");
@@ -107,41 +95,37 @@ export default function App() {
     }
   };
 
-
   const fetchFromSheets = async (isAuto = false) => {
     if (!isAuto) {
       setLoading(true);
     }
     setToast(null);
 
-
     try {
       const response = await fetch(`${GOOGLE_SCRIPT_WEB_APP_URL}?action=readData`);
-      
+
       if (!response.ok) {
         throw new Error(`HTTP error! status: ${response.status}`);
       }
 
-
       const result = await response.json();
-      
+
       if (result.status === "success" && result.data && result.data.length > 0) {
         await Excel.run(async (context: any) => {
           const sheet = context.workbook.worksheets.getActiveWorksheet();
-          
+
           const rowCount = result.data.length;
           const colCount = result.data[0]?.length || 0;
-          
+
           if (rowCount === 0 || colCount === 0) {
             throw new Error("Invalid data structure");
           }
-          
+
           const range = sheet.getRangeByIndexes(0, 0, rowCount, colCount);
           range.values = result.data;
           range.format.autofitColumns();
           await context.sync();
         });
-
 
         if (!isAuto) {
           showToast("success", "Data loaded!");
@@ -163,19 +147,19 @@ export default function App() {
     }
   };
 
-
   return (
-    <Box sx={{ 
-      p: 2, 
-      display: "flex", 
-      flexDirection: "column", 
-      gap: 2, 
-      bgcolor: "#fbfcfe", 
-      minHeight: "100vh",
-      textAlign:'center',
-      alignItems:"center"
-      
-    }}>
+    <Box
+      sx={{
+        p: 2,
+        display: "flex",
+        flexDirection: "column",
+        gap: 2,
+        bgcolor: "#fbfcfe",
+        minHeight: "100vh",
+        textAlign: "center",
+        alignItems: "center",
+      }}
+    >
       {toast && (
         <Box
           sx={{
@@ -208,18 +192,18 @@ export default function App() {
         </Box>
       )}
 
-
-      {/* Header */}
-      <Box sx={{ textAlign: "center"}}>
-        <Typography sx={{ fontWeight: 700, color: "#0062D6", fontSize: "19px", letterSpacing: "0.3px" }}>
+      <Box sx={{ textAlign: "center" }}>
+        <Typography
+          sx={{ fontWeight: 700, color: "#0062D6", fontSize: "19px", letterSpacing: "0.3px" }}
+        >
           StockFlow Ledger
         </Typography>
-        <Typography 
-          sx={{ 
-            color: "#64748b", 
-            display: "flex", 
-            justifyContent: "center", 
-            alignItems: "center", 
+        <Typography
+          sx={{
+            color: "#64748b",
+            display: "flex",
+            justifyContent: "center",
+            alignItems: "center",
             gap: 1,
             fontSize: "12px",
             fontWeight: 500,
@@ -227,16 +211,15 @@ export default function App() {
         >
           Excel Add-ins <SyncAltIcon sx={{ fontSize: "15px" }} /> Google Sheets
         </Typography>
-        
-        {/* FEATURE: Last Sync Timestamp */}
+
         {lastSync && (
           <Chip
             icon={<CheckCircleIcon />}
             label={`Last sync: ${formatTimeAgo(lastSync)}`}
             size="small"
-            sx={{ 
-              mt: 1, 
-              fontSize: "10px", 
+            sx={{
+              mt: 1,
+              fontSize: "10px",
               height: 24,
               bgcolor: "#e8f5e9",
               color: "#2e7d32",
@@ -246,14 +229,15 @@ export default function App() {
         )}
       </Box>
 
-      {/* FEATURE: Auto-Refresh Toggle */}
-      <Box sx={{ 
-        display: "flex", 
-        justifyContent: "space-between", 
-        alignItems: "center", 
-        width: "90%",
-        mt: 1,
-      }}>
+      <Box
+        sx={{
+          display: "flex",
+          justifyContent: "space-between",
+          alignItems: "center",
+          width: "90%",
+          mt: 1,
+        }}
+      >
         <Typography sx={{ fontSize: "11px", fontWeight: 600, color: "#475569" }}>
           Auto-refresh (30s)
         </Typography>
@@ -274,11 +258,7 @@ export default function App() {
           {autoRefresh ? "ON" : "OFF"}
         </Button>
       </Box>
-<Box>
-
-
-</Box>
-      {/* Inputs */}
+      <Box></Box>
       <TextField
         label="Item Name"
         variant="outlined"
@@ -286,7 +266,8 @@ export default function App() {
         value={itemCode}
         onChange={(e) => setItemCode(e.target.value)}
         fullWidth
-        sx={{ width:"90%",
+        sx={{
+          width: "90%",
           "& .MuiOutlinedInput-root": {
             fontSize: "14px",
             "& fieldset": {
@@ -306,7 +287,6 @@ export default function App() {
         }}
       />
 
-
       <TextField
         label="Quantity"
         type="number"
@@ -315,7 +295,8 @@ export default function App() {
         value={quantity}
         onChange={(e) => setQuantity(e.target.value)}
         fullWidth
-        sx={{ width:"90%",
+        sx={{
+          width: "90%",
           "& .MuiOutlinedInput-root": {
             fontSize: "13px",
             "& fieldset": {
@@ -335,22 +316,21 @@ export default function App() {
         }}
       />
 
-
-      {/* Buttons */}
       <Button
         variant="contained"
         disabled={loading}
         onClick={pushToSheets}
         fullWidth
-        sx={{  width:"90%",
-          bgcolor: "#0062D6", 
-          textTransform: "none", 
+        sx={{
+          width: "90%",
+          bgcolor: "#0062D6",
+          textTransform: "none",
           py: 0.75,
           fontSize: "13px",
           fontWeight: 600,
           letterSpacing: "0.3px",
           boxShadow: "0 2px 8px rgba(0,98,214,0.25)",
-          "&:hover": { 
+          "&:hover": {
             bgcolor: "#0B3C95",
             boxShadow: "0 4px 12px rgba(0,98,214,0.35)",
           },
@@ -363,23 +343,23 @@ export default function App() {
         {loading ? <CircularProgress size={18} color="inherit" sx={{ mr: 1 }} /> : "Send to Sheets"}
       </Button>
 
-
       <Button
         variant="outlined"
         disabled={loading}
         onClick={() => fetchFromSheets(false)}
         fullWidth
         startIcon={<RefreshIcon sx={{ fontSize: "16px" }} />}
-        sx={{  width:"90%",
-          textTransform: "none", 
+        sx={{
+          width: "90%",
+          textTransform: "none",
           py: 0.75,
           fontSize: "13px",
           fontWeight: 600,
           letterSpacing: "0.3px",
           color: "#0062D6",
           borderColor: "#0062D6",
-          "&:hover": { 
-            borderColor: "#0B3C95", 
+          "&:hover": {
+            borderColor: "#0B3C95",
             bgcolor: "rgba(0,98,214,0.04)",
           },
           "&.Mui-disabled": {
@@ -390,8 +370,6 @@ export default function App() {
       >
         Fetch from Sheets
       </Button>
-
-
     </Box>
   );
 }
