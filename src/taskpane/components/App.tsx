@@ -20,7 +20,6 @@ export default function App() {
   };
 
 
-  // FEATURE: Data Validation
   const validateInput = (): boolean => {
     // Item code validation: at least 2 chars, letters/numbers only
     const itemRegex = /^[A-Za-z0-9]{2,}$/;
