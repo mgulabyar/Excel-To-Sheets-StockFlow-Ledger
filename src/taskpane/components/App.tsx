@@ -197,7 +197,6 @@ export default function App() {
           Excel Add-ins <SyncAltIcon sx={{ fontSize: "15px" }} /> Google Sheets
         </Typography>
         
-        {/* FEATURE: Last Sync Timestamp */}
         {lastSync && (
           <Chip
             icon={<CheckCircleIcon />}
