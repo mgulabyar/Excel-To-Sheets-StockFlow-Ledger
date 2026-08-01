@@ -238,7 +238,7 @@ export default function App() {
           mt: 1,
         }}
       >
-        <Typography sx={{ fontSize: "11px", fontWeight: 500, color: "#475569" }}>
+        <Typography sx={{ fontSize: "11px", fontWeight: 600, color: "#475569" }}>
           Auto-refresh (30s)
         </Typography>
         <Button
