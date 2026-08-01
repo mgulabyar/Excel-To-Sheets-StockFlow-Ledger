@@ -583,7 +583,6 @@ export default function App() {
         )}
       </Box>
 
-      {/* FEATURE: Auto-Refresh Toggle */}
       <Box sx={{ 
         display: "flex", 
         justifyContent: "space-between", 
