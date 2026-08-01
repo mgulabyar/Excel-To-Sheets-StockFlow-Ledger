@@ -187,7 +187,6 @@ export default function App() {
 
 
 </Box>
-      {/* Inputs */}
       <TextField
         label="Item Name"
         variant="outlined"
@@ -245,7 +244,6 @@ export default function App() {
       />
 
 
-      {/* Buttons */}
       <Button
         variant="contained"
         disabled={loading}
