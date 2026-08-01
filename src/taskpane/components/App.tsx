@@ -22,7 +22,6 @@ export default function App() {
   };
 
 
-  // FEATURE: Data Validation
   const validateInput = (): boolean => {
     const itemRegex = /^[A-Za-z0-9]{2,}$/;
     if (!itemRegex.test(itemCode)) {
