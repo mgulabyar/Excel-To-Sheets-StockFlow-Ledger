@@ -1,6 +1,3 @@
-// ============================================================================
-// StockFlow Ledger - Shared Types (Excel Side)
-// ============================================================================
 
 export interface CloudInventoryPayload {
   itemCode: string;
@@ -8,7 +5,7 @@ export interface CloudInventoryPayload {
   expectedCargo: number;
   leadTime: number;
   dailySalesRate: number;
-  lastUpdated?: string; // ISO timestamp - needed for conflict resolution
+  lastUpdated?: string; 
   updatedBy?: string;
 }
 

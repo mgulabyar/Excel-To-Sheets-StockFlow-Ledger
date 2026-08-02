@@ -1,8 +1,3 @@
-// ============================================================================
-// syncQueue.ts - Resilient Offline Retry Queue
-// Fixes: failed pushes were silently lost (only console.error, no retry)
-// ============================================================================
-
 import { QueuedRequest, WritebackPayload } from "../types";
 import { sendSecurePost } from "./secureRequest";
 
@@ -22,13 +17,10 @@ function saveQueue(queue: QueuedRequest[]): void {
   try {
     window.localStorage.setItem(STORAGE_KEY, JSON.stringify(queue));
   } catch {
-    // storage unavailable - queue will only live in memory for this session
   }
 }
 
-/**
- * Adds a failed writeback payload to the retry queue, in original order.
- */
+
 export function enqueueFailedRequest(payload: WritebackPayload): QueuedRequest {
   const queue = loadQueue();
   const entry: QueuedRequest = {
@@ -50,11 +42,7 @@ export function getQueueSnapshot(): QueuedRequest[] {
   return loadQueue();
 }
 
-/**
- * Attempts to flush the entire queue in FIFO order. Stops retrying an
- * individual item after MAX_ATTEMPTS to avoid infinite retry storms, and
- * reports how many succeeded / how many remain.
- */
+
 export async function flushQueue(
   apiUrl: string
 ): Promise<{ succeeded: number; remaining: number; failed: number }> {
@@ -77,7 +65,7 @@ export async function flushQueue(
 
     entry.attempts += 1;
     if (entry.attempts >= MAX_ATTEMPTS) {
-      failed += 1; // permanently dropped after too many failures
+      failed += 1;
     } else {
       stillPending.push(entry);
     }
