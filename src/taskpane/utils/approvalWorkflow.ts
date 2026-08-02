@@ -1,8 +1,3 @@
-// ============================================================================
-// approvalWorkflow.ts - Two-Step Approval Chain
-// Fixes: a single click was going straight to "approved", no second check
-// ============================================================================
-
 import { ApprovalStage } from "../types";
 
 interface TransitionResult {
