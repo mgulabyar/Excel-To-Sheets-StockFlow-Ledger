@@ -97,10 +97,7 @@ export async function applyStockoutHighlight(itemCode: string, isAtRisk: boolean
   });
 }
 
-/**
- * Highlights a row as having an unresolved conflict (distinct amber color,
- * so it doesn't get confused with a normal stockout risk highlight).
- */
+
 export async function applyConflictHighlight(itemCode: string): Promise<void> {
   await Excel.run(async (context: any) => {
     const sheet = context.workbook.worksheets.getActiveWorksheet();
@@ -121,10 +118,7 @@ export async function applyConflictHighlight(itemCode: string): Promise<void> {
   });
 }
 
-/**
- * Writes the updated quantity + a status label into the item's row,
- * and returns the previous quantity (needed for audit "before" value).
- */
+
 export async function writeRowUpdate(
   itemCode: string,
   newQuantity: number,
@@ -160,11 +154,7 @@ export async function writeRowUpdate(
   return { previousQuantity, rowFound };
 }
 
-/**
- * Ensures a hidden "AuditLog" worksheet exists and appends a row to it.
- * This mirrors the local (localStorage) audit log directly inside the
- * workbook itself, so the trail travels with the file.
- */
+
 export async function appendAuditRowToWorkbook(row: (string | number)[]): Promise<void> {
   await Excel.run(async (context: any) => {
     const worksheets = context.workbook.worksheets;
