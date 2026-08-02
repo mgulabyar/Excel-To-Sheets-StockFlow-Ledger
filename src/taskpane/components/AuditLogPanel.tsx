@@ -1,4 +1,3 @@
-
 import * as React from "react";
 import { Box, Typography, Button } from "@mui/material";
 import { AuditEntry } from "../types";
@@ -36,14 +35,26 @@ export default function AuditLogPanel({ entries, onExportCsv }: AuditLogPanelPro
           No activity recorded yet.
         </Typography>
       ) : (
-        <Box sx={{ display: "flex", flexDirection: "column", gap: 0.75, maxHeight: 160, overflowY: "auto" }}>
+        <Box
+          sx={{
+            display: "flex",
+            flexDirection: "column",
+            gap: 0.75,
+            maxHeight: 160,
+            overflowY: "auto",
+          }}
+        >
           {entries.map((entry) => (
             <Box key={entry.id} sx={{ borderBottom: "1px solid #f1f5f9", pb: 0.5 }}>
-              <Typography variant="caption" sx={{ fontSize: "10.5px", color: "#1e293b", display: "block" }}>
+              <Typography
+                variant="caption"
+                sx={{ fontSize: "10.5px", color: "#1e293b", display: "block" }}
+              >
                 <strong>{entry.itemCode}</strong> - {entry.action.replace(/_/g, " ")}
               </Typography>
               <Typography variant="caption" sx={{ fontSize: "9.5px", color: "#94a3b8" }}>
-                {entry.beforeValue ?? "-"} → {entry.afterValue ?? "-"} · {new Date(entry.timestamp).toLocaleString()}
+                {entry.beforeValue ?? "-"} → {entry.afterValue ?? "-"} ·{" "}
+                {new Date(entry.timestamp).toLocaleString()}
               </Typography>
             </Box>
           ))}
