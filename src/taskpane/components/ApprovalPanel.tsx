@@ -1,5 +1,5 @@
 
-// ApprovalPanel.tsx - Two-Step Approval Chain UI
+// ApprovalPanel.tsx - Two-Step Approval
 // 
 
 import * as React from "react";
