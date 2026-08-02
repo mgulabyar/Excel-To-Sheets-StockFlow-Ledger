@@ -1,5 +1,5 @@
 // 
-// AuditLogPanel.tsx - Full Traceability Ledger Display
+// AuditLogPanel.tsx - Full Traceability 
 // ============================================================================
 
 import * as React from "react";
