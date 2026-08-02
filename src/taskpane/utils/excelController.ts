@@ -1,17 +1,9 @@
-// ============================================================================
-// excelController.ts - Dedicated Office.js Helper Layer
-// Fixes: all Office.js logic was previously inline inside App.tsx
-// ============================================================================
-
 declare const Excel: any;
 
 const RISK_HIGHLIGHT_COLOR = "#FEE2E2";
-const CONFLICT_HIGHLIGHT_COLOR = "#FEF3C7"; // amber - distinct from stockout red
+const CONFLICT_HIGHLIGHT_COLOR = "#FEF3C7";
 
-/**
- * Registers a selection-change listener on the active worksheet.
- * Returns a disposer so the caller (React useEffect) can clean it up.
- */
+
 export async function bindSelectionHandler(
   onSelectionChanged: (itemCode: string, quantity: string, rowIndex: number) => void
 ): Promise<() => void> {
@@ -48,16 +40,13 @@ export async function bindSelectionHandler(
   });
 
   return () => {
-    // Office.js event removal - handlerRef is a subscription object
     if (handlerRef && handlerRef.remove) {
       handlerRef.remove();
     }
   };
 }
 
-/**
- * Reads the full used range as a 2D array of values.
- */
+
 export async function readUsedRange(): Promise<any[][]> {
   let values: any[][] = [];
   await Excel.run(async (context: any) => {
@@ -70,9 +59,6 @@ export async function readUsedRange(): Promise<any[][]> {
   return values;
 }
 
-/**
- * Applies stockout-risk highlight or clears it, for a given item row.
- */
 export async function applyStockoutHighlight(itemCode: string, isAtRisk: boolean): Promise<void> {
   await Excel.run(async (context: any) => {
     const sheet = context.workbook.worksheets.getActiveWorksheet();
