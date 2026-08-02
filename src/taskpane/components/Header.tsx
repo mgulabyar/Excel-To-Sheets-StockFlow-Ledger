@@ -6,7 +6,6 @@ export interface HeaderProps {
   logo: string;
   message: string;
 }
-// heading
 const useStyles = makeStyles({
   welcome__header: {
     display: "flex",
