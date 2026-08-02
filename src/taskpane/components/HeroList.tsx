@@ -58,5 +58,5 @@ const HeroList: React.FC<HeroListProps> = (props: HeroListProps) => {
     </div>
   );
 };
-// heading ok ho rhi ha  aj ki.
+// heading ok ho rhi ha  aj .
 export default HeroList;
