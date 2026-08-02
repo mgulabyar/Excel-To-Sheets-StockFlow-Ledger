@@ -1,5 +1,5 @@
 // 
-// AuditLogPanel.tsx - Full  
+// AuditLogPanel.tsx  
 // ============================================================================
 
 import * as React from "react";
