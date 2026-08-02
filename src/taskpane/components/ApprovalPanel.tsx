@@ -1,6 +1,5 @@
 
 // ApprovalPanel.tsx - Two-Step Approval Chain UI
-// Director submits -> Finance Manager approves/rejects -> then cloud sync
 // 
 
 import * as React from "react";
