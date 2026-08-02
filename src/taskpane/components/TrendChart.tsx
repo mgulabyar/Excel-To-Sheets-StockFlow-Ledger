@@ -1,5 +1,5 @@
 // ============================================================================
-// TrendChart.tsx - Consumption Trend Visualization
+// TrendChart.tsx - Consumption Trend 
 // ============================================================================
 
 import * as React from "react";
