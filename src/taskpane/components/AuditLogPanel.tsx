@@ -1,5 +1,5 @@
 // 
-// AuditLogPanel.tsx - Full Traceability 
+// AuditLogPanel.tsx - Full  
 // ============================================================================
 
 import * as React from "react";
