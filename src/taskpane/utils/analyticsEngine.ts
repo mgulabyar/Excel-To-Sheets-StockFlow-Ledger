@@ -17,7 +17,6 @@ function saveJson<T>(key: string, data: T[]): void {
   try {
     window.localStorage.setItem(key, JSON.stringify(data));
   } catch {
-    // best-effort persistence only
   }
 }
 
