@@ -1,5 +1,5 @@
 
-// ApprovalPanel.tsx - Two-Step Approval
+// ApprovalPanel.tsx - Two-Step
 // 
 
 import * as React from "react";
