@@ -20,10 +20,6 @@ function saveJson<T>(key: string, data: T[]): void {
   }
 }
 
-/**
- * Records a stock-level observation for an item, used to build the
- * consumption trend chart.
- */
 export function recordTrendPoint(itemCode: string, stockLevel: number): void {
   const points = loadJson<TrendPoint>(TREND_KEY);
   points.push({ itemCode, stockLevel, timestamp: new Date().toISOString() });
@@ -49,10 +45,7 @@ export function getTrendPoints(itemCode: string): TrendPoint[] {
   return loadJson<TrendPoint>(TREND_KEY).filter((p) => p.itemCode === itemCode);
 }
 
-/**
- * Records how long a vendor actually took to deliver vs. what was promised,
- * for a given item. This feeds the adaptive lead-time formula below.
- */
+
 export function recordVendorDelivery(
   itemCode: string,
   promisedLeadTime: number,
