@@ -1,12 +1,7 @@
-// ============================================================================
-// auditLogger.ts - Full Traceability Ledger (Local/Excel Side)
-// Fixes: only a single status cell was written, no real audit history
-// ============================================================================
-
 import { AuditEntry } from "../types";
 
 const STORAGE_KEY = "stockflow_audit_log_v1";
-const MAX_ENTRIES = 500; // keep the log bounded
+const MAX_ENTRIES = 500;
 
 function loadLog(): AuditEntry[] {
   try {
@@ -22,7 +17,6 @@ function saveLog(log: AuditEntry[]): void {
     const trimmed = log.slice(-MAX_ENTRIES);
     window.localStorage.setItem(STORAGE_KEY, JSON.stringify(trimmed));
   } catch {
-    // if storage fails, log still exists for current session via caller state
   }
 }
 
@@ -40,7 +34,7 @@ export function recordAuditEntry(entry: Omit<AuditEntry, "id" | "timestamp">): A
 
 export function getAuditLog(limit = 50): AuditEntry[] {
   const log = loadLog();
-  return log.slice(-limit).reverse(); // most recent first
+  return log.slice(-limit).reverse();
 }
 
 export function exportAuditLogAsCsv(): string {
