@@ -7,7 +7,7 @@ import { TrendPoint, VendorLeadTimeRecord } from "../types";
 
 const TREND_KEY = "stockflow_trend_points_v1";
 const LEADTIME_KEY = "stockflow_leadtime_records_v1";
-const MAX_TREND_POINTS_PER_ITEM = 60; // roughly a rolling win
+const MAX_TREND_POINTS_PER_ITEM = 60; 
 
 function loadJson<T>(key: string): T[] {
   try {
