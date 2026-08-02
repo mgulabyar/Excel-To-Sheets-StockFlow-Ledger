@@ -1,7 +1,7 @@
 // ============================================================================
 // analyticsEngine.ts - Trend Analytics + Adaptive Lead-Time Learning
 // Fixes: no consumption trend tracking, no vendor lead-time adjustment
-// ============================================================================
+// 
 
 import { TrendPoint, VendorLeadTimeRecord } from "../types";
 
