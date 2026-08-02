@@ -184,7 +184,7 @@ export async function appendAuditRowToWorkbook(row: (string | number)[]): Promis
     usedRange.load("rowCount");
     await context.sync();
 
-    const nextRow = usedRange.rowCount; // 0-indexed, so this is the next empty row
+    const nextRow = usedRange.rowCount;
     auditSheet.getRangeByIndexes(nextRow, 0, 1, row.length).values = [row];
     await context.sync();
   });
