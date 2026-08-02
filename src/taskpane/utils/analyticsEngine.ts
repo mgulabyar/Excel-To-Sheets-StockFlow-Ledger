@@ -28,7 +28,6 @@ export function recordTrendPoint(itemCode: string, stockLevel: number): void {
   const points = loadJson<TrendPoint>(TREND_KEY);
   points.push({ itemCode, stockLevel, timestamp: new Date().toISOString() });
 
-  // keep only the most recent N points per item to bound storage size
   const forItem = points.filter((p) => p.itemCode === itemCode);
   if (forItem.length > MAX_TREND_POINTS_PER_ITEM) {
     const overflow = forItem.length - MAX_TREND_POINTS_PER_ITEM;
