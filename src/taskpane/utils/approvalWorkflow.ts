@@ -11,13 +11,6 @@ interface TransitionResult {
   message: string;
 }
 
-/**
- * Defines valid transitions between approval stages.
- * draft -> pending_finance (Procurement Director submits)
- * pending_finance -> approved (Finance Manager confirms)
- * pending_finance -> rejected (Finance Manager rejects)
- * approved/rejected are terminal states for a given writeback.
- */
 export function submitForFinanceApproval(currentStage: ApprovalStage): TransitionResult {
   if (currentStage !== "draft") {
     return {
