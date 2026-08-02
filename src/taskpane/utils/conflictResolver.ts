@@ -1,17 +1,8 @@
-// ============================================================================
-// conflictResolver.ts - Dual-Edit Arbitration Layer
-// Fixes: Excel was blindly overwriting cloud data with no timestamp check
-// ============================================================================
-
 import { ConflictRecord } from "../types";
 
 export type ConflictStrategy = "last_write_wins" | "manual_for_flagged";
 
-/**
- * Compares a local (Excel) edit against the cloud (Sheets) value for the
- * same item. If both were edited after the last known sync point, this is
- * flagged as a genuine conflict rather than a normal update.
- */
+
 export function detectConflict(params: {
   itemCode: string;
   localValue: number;
