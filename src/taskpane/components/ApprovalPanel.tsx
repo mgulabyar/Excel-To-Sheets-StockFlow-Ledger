@@ -1,7 +1,3 @@
-
-// ApprovalPanel
-// 
-
 import * as React from "react";
 import { Box, Button, Typography, Chip } from "@mui/material";
 import { ApprovalStage } from "../types";
