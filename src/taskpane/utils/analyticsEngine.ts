@@ -56,15 +56,7 @@ export function recordVendorDelivery(
   saveJson(LEADTIME_KEY, records);
 }
 
-/**
- * Adaptive Lead-Time Learning:
- * Instead of trusting the static "promised" lead time in the stockout
- * formula, this blends it with the historical actual average, so the
- * reorder threshold gets more accurate over time without manual tuning.
- *
- * Uses a simple weighted average (70% historical actual, 30% promised)
- * once at least 3 data points exist; otherwise falls back to promised.
- */
+
 export function getAdaptiveLeadTime(itemCode: string, promisedLeadTime: number): number {
   const records = loadJson<VendorLeadTimeRecord>(LEADTIME_KEY).filter((r) => r.itemCode === itemCode);
   if (records.length < 3) return promisedLeadTime;
