@@ -13,7 +13,7 @@ export function detectConflict(params: {
 }): ConflictRecord | null {
   const { itemCode, localValue, localTimestamp, cloudValue, cloudTimestamp, lastSyncedTimestamp } = params;
 
-  if (localValue === cloudValue) return null; // nothing to resolve
+  if (localValue === cloudValue) return null;
 
   const localEditedAfterSync =
     !lastSyncedTimestamp || new Date(localTimestamp) > new Date(lastSyncedTimestamp);
