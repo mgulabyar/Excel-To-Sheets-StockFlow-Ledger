@@ -295,13 +295,6 @@
 //         value={quantity}
 //         onChange={(e) => setQuantity(e.target.value)}
 //         fullWidth
-//         sx={{
-//           width: "90%",
-//           "& .MuiOutlinedInput-root": {
-//             fontSize: "13px",
-//             "& fieldset": {
-//               borderColor: "#e2e8f0",
-//             },
 
 declare const Excel: any;
 import * as React from "react";
