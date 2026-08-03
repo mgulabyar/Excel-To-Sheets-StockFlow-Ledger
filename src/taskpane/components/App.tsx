@@ -340,18 +340,6 @@
 //           },
 //         }}
 //       >
-//         {loading ? <CircularProgress size={18} color="inherit" sx={{ mr: 1 }} /> : "Send to Sheets"}
-//       </Button>
-
-//       <Button
-//         variant="outlined"
-//         disabled={loading}
-//         onClick={() => fetchFromSheets(false)}
-//         fullWidth
-//         startIcon={<RefreshIcon sx={{ fontSize: "16px" }} />}
-//         sx={{
-//           width: "90%",
-
 
 
 declare const Excel: any;
