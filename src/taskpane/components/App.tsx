@@ -590,7 +590,7 @@ export default function App() {
           </Box>
         </Box>
       )}
-
+{/* heading */}
       <Box sx={{ textAlign: "center" }}>
         <Typography sx={{ fontWeight: 700, color: "#0062D6", fontSize: "19px", letterSpacing: "0.3px" }}>
           StockFlow Ledger
