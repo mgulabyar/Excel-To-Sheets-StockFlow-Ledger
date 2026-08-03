@@ -5,18 +5,6 @@
 // import CheckCircleIcon from "@mui/icons-material/CheckCircle";
 // import RefreshIcon from "@mui/icons-material/Refresh";
 
-// const GOOGLE_SCRIPT_WEB_APP_URL =
-//   "https://script.google.com/macros/s/AKfycbzE7ehrPGVe3eKK6qGI8ZdgAOjy5u_rftI_av8wdXCfb-mzWhs73EvUCKvizM5lXFcoQg/exec";
-
-// export default function App() {
-//   const [itemCode, setItemCode] = React.useState("");
-//   const [quantity, setQuantity] = React.useState("");
-//   const [loading, setLoading] = React.useState(false);
-//   const [toast, setToast] = React.useState<{ type: "success" | "error"; msg: string } | null>(null);
-//   const [lastSync, setLastSync] = React.useState<Date | null>(null);
-//   const [autoRefresh, setAutoRefresh] = React.useState(false);
-//   const [clearBeforeFetch, setClearBeforeFetch] = React.useState(true);
-
 
 declare const Excel: any;
 import * as React from "react";
