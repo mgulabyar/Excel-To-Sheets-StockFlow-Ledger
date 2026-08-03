@@ -269,49 +269,7 @@
 //             fontSize: "10px",
 //             py: 0.4,
 //             px: 1.5,
-//             minWidth: "auto",
-//             textTransform: "none",
-//             height: 24,
-//           }}
-//         >
-//           {autoRefresh ? "ON" : "OFF"}
-//         </Button>
-//       </Box>
-
-//       <TextField
-//         label="Item Name"
-//         variant="outlined"
-//         size="small"
-//         value={itemCode}
-//         onChange={(e) => setItemCode(e.target.value)}
-//         fullWidth
-//         sx={{
-//           width: "90%",
-//           "& .MuiOutlinedInput-root": {
-//             fontSize: "14px",
-//             "& fieldset": {
-//               borderColor: "#e2e8f0",
-//             },
-//             "&:hover fieldset": {
-//               borderColor: "#0062D6",
-//             },
-//             "&.Mui-focused fieldset": {
-//               borderColor: "#0062D6",
-//             },
-//           },
-//           "& .MuiInputLabel-root": {
-//             fontSize: "13px",
-//             color: "#64748b",
-//           },
-//         }}
-//       />
-
-//       <TextField
-//         label="Quantity"
-//         type="number"
-//         variant="outlined"
-//         size="small"
-
+//             minWidth: 
 
 declare const Excel: any;
 import * as React from "react";
