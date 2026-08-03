@@ -624,7 +624,7 @@ export default function App() {
           />
         )}
       </Box>
-{/* box of */}
+{/* box */}
       <Box
         sx={{
           display: "flex",
