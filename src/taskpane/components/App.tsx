@@ -17,63 +17,6 @@
 //   const [autoRefresh, setAutoRefresh] = React.useState(false);
 //   const [clearBeforeFetch, setClearBeforeFetch] = React.useState(true);
 
-//   const showToast = (type: "success" | "error", msg: string) => {
-//     setToast({ type, msg });
-//     setTimeout(() => setToast(null), 3000);
-//   };
-
-//   const validateInput = (): boolean => {
-//     const itemRegex = /^[A-Za-z0-9]{2,}$/;
-//     if (!itemRegex.test(itemCode)) {
-//       showToast("error", "Item: 2+ chars, A-Z/0-9 only");
-//       return false;
-//     }
-
-//     const qty = parseInt(quantity);
-//     if (isNaN(qty) || qty < 1 || qty > 10000) {
-//       showToast("error", "Qty: 1-10000 only");
-//       return false;
-//     }
-
-//     return true;
-//   };
-
-//   const formatTimeAgo = (date: Date): string => {
-//     const seconds = Math.floor((new Date().getTime() - date.getTime()) / 1000);
-//     if (seconds < 60) return "Just now";
-//     const minutes = Math.floor(seconds / 60);
-//     if (minutes < 60) return `${minutes}m ago`;
-//     const hours = Math.floor(minutes / 60);
-//     return `${hours}h ago`;
-//   };
-
-//   React.useEffect(() => {
-//     let interval: ReturnType<typeof setInterval> | null = null;
-//     if (autoRefresh) {
-//       interval = setInterval(() => {
-//         fetchFromSheets(true);
-//       }, 30000);
-//     }
-//     return () => {
-//       if (interval) clearInterval(interval);
-//     };
-//   }, [autoRefresh]);
-
-//   const itemExistsInSheet = async (context: any, code: string): Promise<boolean> => {
-//     const sheet = context.workbook.worksheets.getActiveWorksheet();
-//     const usedRange = sheet.getUsedRangeOrNullObject();
-//     usedRange.load("values");
-//     await context.sync();
-
-//     if (usedRange.isNullObject) return false;
-
-//     const values = usedRange.values || [];
-//     for (let i = 0; i < values.length; i++) {
-//       const row = values[i];
-//       if (row && row[1] !== undefined && String(row[1]).trim().toLowerCase() === code.trim().toLowerCase()) {
-//         return true;
-//       }
-//     }
 
 declare const Excel: any;
 import * as React from "react";
