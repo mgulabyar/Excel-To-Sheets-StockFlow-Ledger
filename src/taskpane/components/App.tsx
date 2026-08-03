@@ -322,16 +322,6 @@
 //         onClick={pushToSheets}
 //         fullWidth
 //         sx={{
-//           width: "90%",
-//           bgcolor: "#0062D6",
-//           textTransform: "none",
-//           py: 0.75,
-//           fontSize: "13px",
-//           fontWeight: 600,
-//           letterSpacing: "0.3px",
-//           boxShadow: "0 2px 8px rgba(0,98,214,0.25)",
-//           "&:hover": {
-
 
 
 declare const Excel: any;
