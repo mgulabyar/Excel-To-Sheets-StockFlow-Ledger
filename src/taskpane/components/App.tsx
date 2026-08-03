@@ -1,3 +1,408 @@
+// declare const Excel: any;
+// import * as React from "react";
+// import { Box, Typography, Button, TextField, CircularProgress, Chip } from "@mui/material";
+// import SyncAltIcon from "@mui/icons-material/SyncAlt";
+// import CheckCircleIcon from "@mui/icons-material/CheckCircle";
+// import RefreshIcon from "@mui/icons-material/Refresh";
+
+// const GOOGLE_SCRIPT_WEB_APP_URL =
+//   "https://script.google.com/macros/s/AKfycbzE7ehrPGVe3eKK6qGI8ZdgAOjy5u_rftI_av8wdXCfb-mzWhs73EvUCKvizM5lXFcoQg/exec";
+
+// export default function App() {
+//   const [itemCode, setItemCode] = React.useState("");
+//   const [quantity, setQuantity] = React.useState("");
+//   const [loading, setLoading] = React.useState(false);
+//   const [toast, setToast] = React.useState<{ type: "success" | "error"; msg: string } | null>(null);
+//   const [lastSync, setLastSync] = React.useState<Date | null>(null);
+//   const [autoRefresh, setAutoRefresh] = React.useState(false);
+//   const [clearBeforeFetch, setClearBeforeFetch] = React.useState(true);
+
+//   const showToast = (type: "success" | "error", msg: string) => {
+//     setToast({ type, msg });
+//     setTimeout(() => setToast(null), 3000);
+//   };
+
+//   const validateInput = (): boolean => {
+//     const itemRegex = /^[A-Za-z0-9]{2,}$/;
+//     if (!itemRegex.test(itemCode)) {
+//       showToast("error", "Item: 2+ chars, A-Z/0-9 only");
+//       return false;
+//     }
+
+//     const qty = parseInt(quantity);
+//     if (isNaN(qty) || qty < 1 || qty > 10000) {
+//       showToast("error", "Qty: 1-10000 only");
+//       return false;
+//     }
+
+//     return true;
+//   };
+
+//   const formatTimeAgo = (date: Date): string => {
+//     const seconds = Math.floor((new Date().getTime() - date.getTime()) / 1000);
+//     if (seconds < 60) return "Just now";
+//     const minutes = Math.floor(seconds / 60);
+//     if (minutes < 60) return `${minutes}m ago`;
+//     const hours = Math.floor(minutes / 60);
+//     return `${hours}h ago`;
+//   };
+
+//   React.useEffect(() => {
+//     let interval: ReturnType<typeof setInterval> | null = null;
+//     if (autoRefresh) {
+//       interval = setInterval(() => {
+//         fetchFromSheets(true);
+//       }, 30000);
+//     }
+//     return () => {
+//       if (interval) clearInterval(interval);
+//     };
+//   }, [autoRefresh]);
+
+//   const itemExistsInSheet = async (context: any, code: string): Promise<boolean> => {
+//     const sheet = context.workbook.worksheets.getActiveWorksheet();
+//     const usedRange = sheet.getUsedRangeOrNullObject();
+//     usedRange.load("values");
+//     await context.sync();
+
+//     if (usedRange.isNullObject) return false;
+
+//     const values = usedRange.values || [];
+//     for (let i = 0; i < values.length; i++) {
+//       const row = values[i];
+//       if (row && row[1] !== undefined && String(row[1]).trim().toLowerCase() === code.trim().toLowerCase()) {
+//         return true;
+//       }
+//     }
+//     return false;
+//   };
+
+//   const pushToSheets = async () => {
+//     if (!validateInput()) return;
+
+//     setLoading(true);
+//     setToast(null);
+
+//     try {
+//       const exists = await Excel.run(async (context: any) => {
+//         return await itemExistsInSheet(context, itemCode);
+//       });
+
+//       if (exists) {
+//         showToast("error", "Item already exists.");
+//         return;
+//       }
+
+//       const response = await fetch(GOOGLE_SCRIPT_WEB_APP_URL, {
+//         method: "POST",
+//         body: JSON.stringify({ action: "writeData", item: itemCode, qty: quantity }),
+//       });
+
+//       if (!response.ok) {
+//         throw new Error(`HTTP error! status: ${response.status}`);
+//       }
+
+//       const result = await response.json();
+
+//       if (result.status === "success") {
+//         showToast("success", "Data sent!");
+//         setItemCode("");
+//         setQuantity("");
+//         setLastSync(new Date());
+//       } else {
+//         throw new Error(result.message || "Unknown error");
+//       }
+//     } catch (error: any) {
+//       showToast("error", error.message);
+//     } finally {
+//       setLoading(false);
+//     }
+//   };
+
+//   const clearActiveSheet = async () => {
+//     await Excel.run(async (context: any) => {
+//       const sheet = context.workbook.worksheets.getActiveWorksheet();
+//       const usedRange = sheet.getUsedRangeOrNullObject();
+//       usedRange.load("address");
+//       await context.sync();
+
+//       if (!usedRange.isNullObject) {
+//         usedRange.clear(Excel.ClearApplyTo.contents);
+//         await context.sync();
+//       }
+//     });
+//   };
+
+//   const fetchFromSheets = async (isAuto = false) => {
+//     if (!isAuto) setLoading(true);
+//     setToast(null);
+
+//     try {
+//       const response = await fetch(`${GOOGLE_SCRIPT_WEB_APP_URL}?action=readData`);
+
+//       if (!response.ok) {
+//         throw new Error(`HTTP error! status: ${response.status}`);
+//       }
+
+//       const result = await response.json();
+
+//       if (result.status === "success" && result.data && result.data.length > 0) {
+//         await Excel.run(async (context: any) => {
+//           const sheet = context.workbook.worksheets.getActiveWorksheet();
+
+//           if (clearBeforeFetch) {
+//             const usedRange = sheet.getUsedRangeOrNullObject();
+//             usedRange.load("isNullObject");
+//             await context.sync();
+
+//             if (!usedRange.isNullObject) {
+//               usedRange.clear(Excel.ClearApplyTo.contents);
+//             }
+//           }
+
+//           const rowCount = result.data.length;
+//           const colCount = result.data[0]?.length || 0;
+
+//           if (rowCount === 0 || colCount === 0) {
+//             throw new Error("Invalid data structure");
+//           }
+
+//           const range = sheet.getRangeByIndexes(0, 0, rowCount, colCount);
+//           range.values = result.data;
+//           range.format.autofitColumns();
+//           await context.sync();
+//         });
+
+//         if (!isAuto) {
+//           showToast("success", clearBeforeFetch ? "Data replaced!" : "Data loaded!");
+//         }
+//         setLastSync(new Date());
+//       } else {
+//         if (!isAuto) showToast("error", "No data found");
+//       }
+//     } catch (error: any) {
+//       if (!isAuto) showToast("error", error.message);
+//     } finally {
+//       if (!isAuto) setLoading(false);
+//     }
+//   };
+
+//   return (
+//     <Box
+//       sx={{
+//         p: 2,
+//         display: "flex",
+//         flexDirection: "column",
+//         gap: 2,
+//         bgcolor: "#fbfcfe",
+//         minHeight: "100vh",
+//         textAlign: "center",
+//         alignItems: "center",
+//       }}
+//     >
+//       {toast && (
+//         <Box sx={{ position: "fixed", top: 12, right: 12, zIndex: 9999, minWidth: 160 }}>
+//           <Box
+//             sx={{
+//               px: 2,
+//               py: 0.75,
+//               borderRadius: 1,
+//               fontSize: "11px",
+//               fontWeight: 600,
+//               color: toast.type === "success" ? "#155724" : "#721c24",
+//               bgcolor: toast.type === "success" ? "#d4edda" : "#f8d7da",
+//               border: `1px solid ${toast.type === "success" ? "#c3e6cb" : "#f5c6cb"}`,
+//               boxShadow: "0 6px 16px rgba(0,0,0,0.12)",
+//             }}
+//           >
+//             {toast.msg}
+//           </Box>
+//         </Box>
+//       )}
+
+//       <Box sx={{ textAlign: "center" }}>
+//         <Typography sx={{ fontWeight: 700, color: "#0062D6", fontSize: "19px", letterSpacing: "0.3px" }}>
+//           StockFlow Ledger
+//         </Typography>
+//         <Typography
+//           sx={{
+//             color: "#64748b",
+//             display: "flex",
+//             justifyContent: "center",
+//             alignItems: "center",
+//             gap: 1,
+//             fontSize: "12px",
+//             fontWeight: 500,
+//           }}
+//         >
+//           Excel Add-ins <SyncAltIcon sx={{ fontSize: "15px" }} /> Google Sheets
+//         </Typography>
+
+//         {lastSync && (
+//           <Chip
+//             icon={<CheckCircleIcon />}
+//             label={`Last sync: ${formatTimeAgo(lastSync)}`}
+//             size="small"
+//             sx={{
+//               mt: 1,
+//               fontSize: "10px",
+//               height: 24,
+//               bgcolor: "#e8f5e9",
+//               color: "#2e7d32",
+//               "& .MuiChip-icon": { fontSize: "14px" },
+//             }}
+//           />
+//         )}
+//       </Box>
+
+//       <Box sx={{ display: "flex", justifyContent: "space-between", alignItems: "center", width: "90%", mt: 1 }}>
+//         <Typography sx={{ fontSize: "11px", fontWeight: 600, color: "#475569" }}>
+//           Auto-refresh (30s)
+//         </Typography>
+//         <Button
+//           size="small"
+//           variant={autoRefresh ? "contained" : "outlined"}
+//           onClick={() => setAutoRefresh(!autoRefresh)}
+//           disabled={loading}
+//           sx={{
+//             fontSize: "10px",
+//             py: 0.4,
+//             px: 1.5,
+//             minWidth: "auto",
+//             textTransform: "none",
+//             height: 24,
+//           }}
+//         >
+//           {autoRefresh ? "ON" : "OFF"}
+//         </Button>
+//       </Box>
+
+//       <Box sx={{ display: "flex", justifyContent: "space-between", alignItems: "center", width: "90%", mt: 0 }}>
+//         <Typography sx={{ fontSize: "11px", fontWeight: 600, color: "#475569" }}>
+//           Clear before fetch
+//         </Typography>
+//         <Button
+//           size="small"
+//           variant={clearBeforeFetch ? "contained" : "outlined"}
+//           onClick={() => setClearBeforeFetch(!clearBeforeFetch)}
+//           disabled={loading}
+//           sx={{
+//             fontSize: "10px",
+//             py: 0.4,
+//             px: 1.5,
+//             minWidth: "auto",
+//             textTransform: "none",
+//             height: 24,
+//           }}
+//         >
+//           {clearBeforeFetch ? "ON" : "OFF"}
+//         </Button>
+//       </Box>
+
+//       <TextField
+//         label="Item Name"
+//         variant="outlined"
+//         size="small"
+//         value={itemCode}
+//         onChange={(e) => setItemCode(e.target.value)}
+//         fullWidth
+//         sx={{
+//           width: "90%",
+//           "& .MuiOutlinedInput-root": {
+//             fontSize: "14px",
+//             "& fieldset": { borderColor: "#e2e8f0" },
+//             "&:hover fieldset": { borderColor: "#0062D6" },
+//             "&.Mui-focused fieldset": { borderColor: "#0062D6" },
+//           },
+//           "& .MuiInputLabel-root": {
+//             fontSize: "13px",
+//             color: "#64748b",
+//           },
+//         }}
+//       />
+
+//       <TextField
+//         label="Quantity"
+//         type="number"
+//         variant="outlined"
+//         size="small"
+//         value={quantity}
+//         onChange={(e) => setQuantity(e.target.value)}
+//         fullWidth
+//         sx={{
+//           width: "90%",
+//           "& .MuiOutlinedInput-root": {
+//             fontSize: "13px",
+//             "& fieldset": { borderColor: "#e2e8f0" },
+//             "&:hover fieldset": { borderColor: "#0062D6" },
+//             "&.Mui-focused fieldset": { borderColor: "#0062D6" },
+//           },
+//           "& .MuiInputLabel-root": {
+//             fontSize: "13px",
+//             color: "#64748b",
+//           },
+//         }}
+//       />
+
+//       <Button
+//         variant="contained"
+//         disabled={loading}
+//         onClick={pushToSheets}
+//         fullWidth
+//         sx={{
+//           width: "90%",
+//           bgcolor: "#0062D6",
+//           textTransform: "none",
+//           py: 0.75,
+//           fontSize: "13px",
+//           fontWeight: 600,
+//           letterSpacing: "0.3px",
+//           boxShadow: "0 2px 8px rgba(0,98,214,0.25)",
+//           "&:hover": {
+//             bgcolor: "#0B3C95",
+//             boxShadow: "0 4px 12px rgba(0,98,214,0.35)",
+//           },
+//           "&.Mui-disabled": {
+//             bgcolor: "#94a3b8",
+//             color: "#e2e8f0",
+//           },
+//         }}
+//       >
+//         {loading ? <CircularProgress size={18} color="inherit" sx={{ mr: 1 }} /> : "Send to Sheets"}
+//       </Button>
+
+//       <Button
+//         variant="outlined"
+//         disabled={loading}
+//         onClick={() => fetchFromSheets(false)}
+//         fullWidth
+//         startIcon={<RefreshIcon sx={{ fontSize: "16px" }} />}
+//         sx={{
+//           width: "90%",
+//           textTransform: "none",
+//           py: 0.75,
+//           fontSize: "13px",
+//           fontWeight: 600,
+//           letterSpacing: "0.3px",
+//           color: "#0062D6",
+//           borderColor: "#0062D6",
+//           "&:hover": {
+//             borderColor: "#0B3C95",
+//             bgcolor: "rgba(0,98,214,0.04)",
+//           },
+//           "&.Mui-disabled": {
+//             color: "#94a3b8",
+//             borderColor: "#94a3b8",
+//           },
+//         }}
+//       >
+//         Fetch from Sheets
+//       </Button>
+//     </Box>
+//   );
+// }
+
+
 declare const Excel: any;
 import * as React from "react";
 import { Box, Typography, Button, TextField, CircularProgress, Chip } from "@mui/material";
@@ -11,6 +416,7 @@ const GOOGLE_SCRIPT_WEB_APP_URL =
 export default function App() {
   const [itemCode, setItemCode] = React.useState("");
   const [quantity, setQuantity] = React.useState("");
+  const [sheetName, setSheetName] = React.useState("Inventory");
   const [loading, setLoading] = React.useState(false);
   const [toast, setToast] = React.useState<{ type: "success" | "error"; msg: string } | null>(null);
   const [lastSync, setLastSync] = React.useState<Date | null>(null);
@@ -32,6 +438,11 @@ export default function App() {
     const qty = parseInt(quantity);
     if (isNaN(qty) || qty < 1 || qty > 10000) {
       showToast("error", "Qty: 1-10000 only");
+      return false;
+    }
+
+    if (!sheetName.trim()) {
+      showToast("error", "Sheet name is required");
       return false;
     }
 
@@ -59,8 +470,15 @@ export default function App() {
     };
   }, [autoRefresh]);
 
+  const getTargetWorksheet = async (context: any) => {
+    const sheet = context.workbook.worksheets.getItem(sheetName.trim());
+    sheet.load("name");
+    await context.sync();
+    return sheet;
+  };
+
   const itemExistsInSheet = async (context: any, code: string): Promise<boolean> => {
-    const sheet = context.workbook.worksheets.getActiveWorksheet();
+    const sheet = await getTargetWorksheet(context);
     const usedRange = sheet.getUsedRangeOrNullObject();
     usedRange.load("values");
     await context.sync();
@@ -95,7 +513,12 @@ export default function App() {
 
       const response = await fetch(GOOGLE_SCRIPT_WEB_APP_URL, {
         method: "POST",
-        body: JSON.stringify({ action: "writeData", item: itemCode, qty: quantity }),
+        body: JSON.stringify({
+          action: "writeData",
+          sheetName: sheetName.trim(),
+          item: itemCode,
+          qty: quantity,
+        }),
       });
 
       if (!response.ok) {
@@ -119,26 +542,12 @@ export default function App() {
     }
   };
 
-  const clearActiveSheet = async () => {
-    await Excel.run(async (context: any) => {
-      const sheet = context.workbook.worksheets.getActiveWorksheet();
-      const usedRange = sheet.getUsedRangeOrNullObject();
-      usedRange.load("address");
-      await context.sync();
-
-      if (!usedRange.isNullObject) {
-        usedRange.clear(Excel.ClearApplyTo.contents);
-        await context.sync();
-      }
-    });
-  };
-
   const fetchFromSheets = async (isAuto = false) => {
     if (!isAuto) setLoading(true);
     setToast(null);
 
     try {
-      const response = await fetch(`${GOOGLE_SCRIPT_WEB_APP_URL}?action=readData`);
+      const response = await fetch(`${GOOGLE_SCRIPT_WEB_APP_URL}?action=readData&sheetName=${encodeURIComponent(sheetName.trim())}`);
 
       if (!response.ok) {
         throw new Error(`HTTP error! status: ${response.status}`);
@@ -148,7 +557,7 @@ export default function App() {
 
       if (result.status === "success" && result.data && result.data.length > 0) {
         await Excel.run(async (context: any) => {
-          const sheet = context.workbook.worksheets.getActiveWorksheet();
+          const sheet = await getTargetWorksheet(context);
 
           if (clearBeforeFetch) {
             const usedRange = sheet.getUsedRangeOrNullObject();
@@ -298,6 +707,28 @@ export default function App() {
           {clearBeforeFetch ? "ON" : "OFF"}
         </Button>
       </Box>
+
+      <TextField
+        label="Sheet Name"
+        variant="outlined"
+        size="small"
+        value={sheetName}
+        onChange={(e) => setSheetName(e.target.value)}
+        fullWidth
+        sx={{
+          width: "90%",
+          "& .MuiOutlinedInput-root": {
+            fontSize: "14px",
+            "& fieldset": { borderColor: "#e2e8f0" },
+            "&:hover fieldset": { borderColor: "#0062D6" },
+            "&.Mui-focused fieldset": { borderColor: "#0062D6" },
+          },
+          "& .MuiInputLabel-root": {
+            fontSize: "13px",
+            color: "#64748b",
+          },
+        }}
+      />
 
       <TextField
         label="Item Name"
