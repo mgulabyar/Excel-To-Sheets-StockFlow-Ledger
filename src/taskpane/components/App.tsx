@@ -382,16 +382,6 @@
 //             bgcolor: "rgba(0,98,214,0.04)",
 //           },
 //           "&.Mui-disabled": {
-//             color: "#94a3b8",
-//             borderColor: "#94a3b8",
-//           },
-//         }}
-//       >
-//         Fetch from Sheets
-//       </Button>
-//     </Box>
-//   );
-// }
 
 
 declare const Excel: any;
