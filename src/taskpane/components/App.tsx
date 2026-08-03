@@ -605,7 +605,7 @@ export default function App() {
             fontWeight: 500,
           }}
         >
-          {/* subheading */}
+          {/*  */}
           Excel Add-ins <SyncAltIcon sx={{ fontSize: "15px" }} /> Google Sheets
         </Typography>
 
