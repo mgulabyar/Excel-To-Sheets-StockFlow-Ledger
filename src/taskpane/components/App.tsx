@@ -624,7 +624,7 @@ export default function App() {
           />
         )}
       </Box>
-{/* box of autof */}
+{/* box of */}
       <Box
         sx={{
           display: "flex",
