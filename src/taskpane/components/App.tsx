@@ -238,27 +238,7 @@
 //           mt: 1,
 //         }}
 //       >
-//         <Typography sx={{ fontSize: "11px", fontWeight: 600, color: "#475569" }}>
-//           Auto-refresh (30s)
-//         </Typography>
-//         <Button
-//           size="small"
-//           variant={autoRefresh ? "contained" : "outlined"}
-//           onClick={() => setAutoRefresh(!autoRefresh)}
-//           disabled={loading}
-//           sx={{
-//             fontSize: "10px",
-//             py: 0.4,
-//             px: 1.5,
-//             minWidth: "auto",
-//             textTransform: "none",
-//             height: 24,
-//           }}
-//         >
-//           {autoRefresh ? "ON" : "OFF"}
-//         </Button>
-//       </Box>
-//       <Box></Box>
+
 
 
 declare const Excel: any;
