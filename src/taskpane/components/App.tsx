@@ -351,12 +351,7 @@
 //         startIcon={<RefreshIcon sx={{ fontSize: "16px" }} />}
 //         sx={{
 //           width: "90%",
-//           textTransform: "none",
-//           py: 0.75,
-//           fontSize: "13px",
-//           fontWeight: 600,
-//           letterSpacing: "0.3px",
-//           color: "#0062D6",
+
 
 
 declare const Excel: any;
