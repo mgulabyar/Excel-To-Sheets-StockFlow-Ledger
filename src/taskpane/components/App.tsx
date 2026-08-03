@@ -74,23 +74,6 @@
 //         return true;
 //       }
 //     }
-//     return false;
-//   };
-
-//   const pushToSheets = async () => {
-//     if (!validateInput()) return;
-
-//     setLoading(true);
-//     setToast(null);
-
-//     try {
-//       const exists = await Excel.run(async (context: any) => {
-//         return await itemExistsInSheet(context, itemCode);
-//       });
-
-//       if (exists) {
-//         showToast("error", "Item already exists.");
-//         return;
 
 declare const Excel: any;
 import * as React from "react";
