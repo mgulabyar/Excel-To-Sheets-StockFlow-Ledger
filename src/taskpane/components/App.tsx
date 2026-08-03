@@ -681,7 +681,7 @@ export default function App() {
           },
         }}
       />
-{/* quantitity input */}
+{/* quantitity */}
       <TextField
         label="Quantity"
         type="number"
