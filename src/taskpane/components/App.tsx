@@ -343,22 +343,6 @@
 //         sx={{
 //           width: "90%",
 //           bgcolor: "#0062D6",
-//           textTransform: "none",
-//           py: 0.75,
-//           fontSize: "13px",
-//           fontWeight: 600,
-//           letterSpacing: "0.3px",
-//           boxShadow: "0 2px 8px rgba(0,98,214,0.25)",
-//           "&:hover": {
-//             bgcolor: "#0B3C95",
-//             boxShadow: "0 4px 12px rgba(0,98,214,0.35)",
-//           },
-//           "&.Mui-disabled": {
-//             bgcolor: "#94a3b8",
-//             color: "#e2e8f0",
-//           },
-//         }}
-//       >
 
 
 declare const Excel: any;
