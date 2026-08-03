@@ -192,33 +192,7 @@
 //       sx={{
 //         p: 2,
 //         display: "flex",
-//         flexDirection: "column",
-//         gap: 2,
-//         bgcolor: "#fbfcfe",
-//         minHeight: "100vh",
-//         textAlign: "center",
-//         alignItems: "center",
-//       }}
-//     >
-//       {toast && (
-//         <Box sx={{ position: "fixed", top: 12, right: 12, zIndex: 9999, minWidth: 160 }}>
-//           <Box
-//             sx={{
-//               px: 2,
-//               py: 0.75,
-//               borderRadius: 1,
-//               fontSize: "11px",
-//               fontWeight: 600,
-//               color: toast.type === "success" ? "#155724" : "#721c24",
-//               bgcolor: toast.type === "success" ? "#d4edda" : "#f8d7da",
-//               border: `1px solid ${toast.type === "success" ? "#c3e6cb" : "#f5c6cb"}`,
-//               boxShadow: "0 6px 16px rgba(0,0,0,0.12)",
-//             }}
-//           >
-//             {toast.msg}
-//           </Box>
-//         </Box>
-//       )}
+
 
 declare const Excel: any;
 import * as React from "react";
