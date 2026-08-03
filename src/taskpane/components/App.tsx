@@ -217,27 +217,7 @@
 //             icon={<CheckCircleIcon />}
 //             label={`Last sync: ${formatTimeAgo(lastSync)}`}
 //             size="small"
-//             sx={{
-//               mt: 1,
-//               fontSize: "10px",
-//               height: 24,
-//               bgcolor: "#e8f5e9",
-//               color: "#2e7d32",
-//               "& .MuiChip-icon": { fontSize: "14px" },
-//             }}
-//           />
-//         )}
-//       </Box>
 
-//       <Box
-//         sx={{
-//           display: "flex",
-//           justifyContent: "space-between",
-//           alignItems: "center",
-//           width: "90%",
-//           mt: 1,
-//         }}
-//       >
 
 
 
