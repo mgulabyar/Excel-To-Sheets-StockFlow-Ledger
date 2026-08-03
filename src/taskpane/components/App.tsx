@@ -1,14 +1,3 @@
-// declare const Excel: any;
-// import * as React from "react";
-// import { Box, Typography, Button, TextField, CircularProgress, Chip } from "@mui/material";
-// import SyncAltIcon from "@mui/icons-material/SyncAlt";
-// import CheckCircleIcon from "@mui/icons-material/CheckCircle";
-// import RefreshIcon from "@mui/icons-material/Refresh";
-
-// const GOOGLE_SCRIPT_WEB_APP_URL =
-//   "https://script.google.com/macros/s/AKfycbzE7ehrPGVe3eKK6qGI8ZdgAOjy5u_rftI_av8wdXCfb-mzWhs73EvUCKvizM5lXFcoQg/exec";
-
-
 declare const Excel: any;
 import * as React from "react";
 import { Box, Typography, Button, TextField, CircularProgress, Chip } from "@mui/material";
