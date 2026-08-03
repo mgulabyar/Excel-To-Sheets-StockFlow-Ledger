@@ -371,17 +371,7 @@
 //         sx={{
 //           width: "90%",
 //           textTransform: "none",
-//           py: 0.75,
-//           fontSize: "13px",
-//           fontWeight: 600,
-//           letterSpacing: "0.3px",
-//           color: "#0062D6",
-//           borderColor: "#0062D6",
-//           "&:hover": {
-//             borderColor: "#0B3C95",
-//             bgcolor: "rgba(0,98,214,0.04)",
-//           },
-//           "&.Mui-disabled": {
+
 
 
 declare const Excel: any;
