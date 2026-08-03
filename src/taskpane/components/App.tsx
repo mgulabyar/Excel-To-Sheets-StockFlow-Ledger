@@ -624,7 +624,7 @@ export default function App() {
           />
         )}
       </Box>
-
+{/* box of autorefreshing */}
       <Box
         sx={{
           display: "flex",
