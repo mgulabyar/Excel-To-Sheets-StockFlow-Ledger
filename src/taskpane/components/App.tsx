@@ -311,22 +311,6 @@
 //         type="number"
 //         variant="outlined"
 //         size="small"
-//         value={quantity}
-//         onChange={(e) => setQuantity(e.target.value)}
-//         fullWidth
-//         sx={{
-//           width: "90%",
-//           "& .MuiOutlinedInput-root": {
-//             fontSize: "13px",
-//             "& fieldset": {
-//               borderColor: "#e2e8f0",
-//             },
-//             "&:hover fieldset": {
-//               borderColor: "#0062D6",
-//             },
-//             "&.Mui-focused fieldset": {
-//               borderColor: "#0062D6",
-//             },
 
 
 declare const Excel: any;
