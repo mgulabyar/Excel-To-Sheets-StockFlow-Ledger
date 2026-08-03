@@ -357,18 +357,6 @@
 //           fontWeight: 600,
 //           letterSpacing: "0.3px",
 //           color: "#0062D6",
-//           borderColor: "#0062D6",
-//           "&:hover": {
-//             borderColor: "#0B3C95",
-//             bgcolor: "rgba(0,98,214,0.04)",
-//           },
-//           "&.Mui-disabled": {
-//             color: "#94a3b8",
-//             borderColor: "#94a3b8",
-//           },
-//         }}
-//       >
-//         Fetch from Sheets
 
 
 declare const Excel: any;
