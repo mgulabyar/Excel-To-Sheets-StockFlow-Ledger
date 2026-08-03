@@ -478,7 +478,7 @@ export default function App() {
       showToast("error", "Item must be at least 2 characters");
       return false;
     }
-// 
+
     const qty = parseInt(quantity);
     if (isNaN(qty) || qty < 1 || qty > 10000) {
       showToast("error", "Qty: 1-10000 only");
