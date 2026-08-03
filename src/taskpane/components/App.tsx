@@ -259,18 +259,7 @@
 //         </Button>
 //       </Box>
 //       <Box></Box>
-//       <TextField
-//         label="Item Name"
-//         variant="outlined"
-//         size="small"
-//         value={itemCode}
-//         onChange={(e) => setItemCode(e.target.value)}
-//         fullWidth
-//         sx={{
-//           width: "90%",
-//           "& .MuiOutlinedInput-root": {
-//             fontSize: "14px",
-//             "& fieldset": {
+
 
 declare const Excel: any;
 import * as React from "react";
